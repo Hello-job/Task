@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-red-50 text-white rounded;
+  }
+  .a-v-h-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+}
+
+@layer base {
+  :root {
+    /* 主题字体颜色  */
+    --color-text-primary: #7b67ee;
+    /* 黑色字体颜色  */
+    --color-text-base: #2a2c34;
+    /* 灰色字体颜色  */
+    --color-text-gray: #6e7080;
+    /* 浅灰字体颜色  */
+    --color-text-light-gray: #8c8c8c;
+    /* 选中色 */
+    --color-text-light: #edeaff;
+    /* 白色字体 */
+    --color-text-white: #ffffff;
+
+    /* hover灰色 */
+    --color-hover-gray: #f5f7fa;
+
+    /* 背景白色 */
+    --color-bg-base: #ffffff;
+    /* 背景主题色 */
+    --color-bg-primary: #ffffff;
+  }
+  .theme-deep {
+    /* 主题字体颜色  */
+    --color-text-primary: #7b67ee;
+    /* 白色字体颜色  */
+    --color-text-base: #fffff5db;
+    /* 灰色字体颜色  */
+    --color-text-gray: #ebebf599;
+    /* 浅灰字体颜色  */
+    --color-text-light-gray: #8c8c8c;
+    /* 选中色 */
+    --color-text-light: #edeaff;
+    /* 白色字体 */
+    --color-text-white: #ffffff;
+
+    /* hover灰色 */
+    --color-hover-gray: #f5f7fa;
+
+    /* 背景黑色 */
+    --color-bg-base: #1e1e20;
+    /* 背景浅黑色 */
+    --color-bg-primary: #161618;
+  }
+}
