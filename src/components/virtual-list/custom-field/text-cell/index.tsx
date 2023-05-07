@@ -10,7 +10,7 @@ interface TextAreaType {
 const TextArea = ({ column }: TextAreaType) => {
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(column.label);
-  const handleOnBlur = e => {
+  const handleOnBlur = () => {
     setEdit(false);
   };
   return (
