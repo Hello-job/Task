@@ -8,7 +8,11 @@ interface CellType {
 
 const Cell = ({ children, className = '' }: CellType) => {
   return (
-    <div className={cls('px-2 w-full h-full text-left', className)}>
+    <div
+      className={cls(
+        'px-2 w-full h-full text-left flex flex-col justify-center text-sm text-[#3c4152]',
+        className
+      )}>
       {children}
     </div>
   );

@@ -24,6 +24,9 @@ module.exports = {
         },
         baseGray: '#e7ebf4', // 表格灰色
         textGray: '#6e7080' // 文字灰色
+      },
+      boxShadow: {
+        base: '0 4px 8px rgba(0,0,0,.07), 0 8px 28px rgba(0,0,0,.09)'
       }
     }
   },
