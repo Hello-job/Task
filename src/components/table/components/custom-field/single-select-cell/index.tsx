@@ -69,7 +69,7 @@ const SingleSelect = ({ column, rowItem, onChange }: IProps) => {
         content={content()}>
         <div className="flex items-center justify-between">
           {showItem(selectItem)}
-          <Icon className=" text-textLight" type="iconicon_menu_down_default" />
+          <Icon className=" text-textLight" type="iconcaret-down" />
         </div>
       </Popover>
     </Cell>

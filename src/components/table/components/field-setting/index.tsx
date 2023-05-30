@@ -22,11 +22,15 @@ const FieldSetting = ({ onClose }: FieldSettingType) => {
 
   const handleSettingFieldsoffset = () => {
     const bodyOffsetWidth = document.body.offsetWidth;
+
     const settingFieldDom = settingFieldRef.current;
     const offsetInfo = settingFieldDom?.getBoundingClientRect();
+
     if (!offsetInfo) return { left: 300, top: 0 };
+
     const settingFieldsLeft = offsetInfo?.x - settingFieldWidth - offsetWidth;
     const settingFieldsRight = offsetInfo?.x + settingFieldWidth + offsetWidth;
+
     const offset = {
       left:
         bodyOffsetWidth - offsetInfo?.right > settingFieldWidth
