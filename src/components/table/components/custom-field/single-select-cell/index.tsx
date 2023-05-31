@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Popover } from 'antd';
-import Cell from '../cell';
 import { Icon } from '@/components';
 import type { IProps } from '../interface';
 
@@ -60,19 +59,17 @@ const SingleSelect = ({ column, rowItem, onChange }: IProps) => {
   };
 
   return (
-    <Cell>
-      <Popover
-        open={open}
-        onOpenChange={handleOpenChange}
-        trigger="click"
-        placement="bottomLeft"
-        content={content()}>
-        <div className="flex items-center justify-between">
-          {showItem(selectItem)}
-          <Icon className=" text-textLight" type="iconcaret-down" />
-        </div>
-      </Popover>
-    </Cell>
+    <Popover
+      open={open}
+      onOpenChange={handleOpenChange}
+      trigger="click"
+      placement="bottomLeft"
+      content={content()}>
+      <div className="flex items-center justify-between">
+        {showItem(selectItem)}
+        <Icon className=" text-textLight" type="iconcaret-down" />
+      </div>
+    </Popover>
   );
 };
 

@@ -1,7 +1,15 @@
 import HeaderCells from './components/header-cells';
 import TableContent from './components/table-content';
 import useThRender from './hooks/useThRender';
-import type { TableProps } from './interface';
+
+import type { ColumnType, rowDataType } from '@/stores/application/types';
+
+export interface TableProps {
+  columns: ColumnType[];
+  visibleList: rowDataType[];
+  onChange: any;
+  setVisibleList: (params: any) => void;
+}
 
 const Table = ({
   columns,

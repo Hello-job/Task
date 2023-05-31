@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { registerMicroApps, start } from 'qiankun';
-import { ations } from '../../microApp/index';
+import { ations } from '../../micro-app/index';
 import { Storage } from '@/shared';
 import { HOST, APP_NAME } from './config';
 

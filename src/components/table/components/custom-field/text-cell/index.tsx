@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Input } from 'antd';
-import Cell from '../cell';
 import type { IProps } from '../interface';
 import type { ChangeEvent } from 'react';
 
@@ -17,7 +16,7 @@ const TextArea = ({ column, rowItem, onChange }: IProps) => {
     setEdit(false);
   };
   return (
-    <Cell>
+    <>
       {edit ? (
         <Input
           className="text-sm"
@@ -39,7 +38,7 @@ const TextArea = ({ column, rowItem, onChange }: IProps) => {
           <span>{defaultValue}</span>
         </span>
       )}
-    </Cell>
+    </>
   );
 };
 

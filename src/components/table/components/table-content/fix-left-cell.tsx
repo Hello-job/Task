@@ -1,8 +1,12 @@
 import { useState, memo } from 'react';
 import { Input } from 'antd';
 import Cell from '../custom-field/cell';
-import type { ColumnType } from '../interface';
 import type { ChangeEvent, MouseEvent } from 'react';
+import type {
+  rowDataType,
+  ColumnType,
+  ChangeType
+} from '@/stores/application/types';
 
 const FixLeftCell = ({
   column,
@@ -12,10 +16,10 @@ const FixLeftCell = ({
   handleContextMenu
 }: {
   column: ColumnType;
-  rowItem: any;
+  rowItem: rowDataType;
   onChange: (params: any) => void;
-  onChangeRow: (type: any, row: any) => void;
-  handleContextMenu: (e: MouseEvent<HTMLDivElement>, row: any) => void;
+  onChangeRow: (type: ChangeType, row: rowDataType) => void;
+  handleContextMenu: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
 }) => {
   const { width, name } = column;
   const defaultValue = rowItem[column.name];
@@ -40,13 +44,9 @@ const FixLeftCell = ({
       className="h-full border border-solid border-baseGray flex items-center"
       onClick={() => {
         onChangeRow('edit', rowItem);
-      }}
-      onContextMenu={(e: MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        handleContextMenu(e, rowItem);
       }}>
-      <Cell>
-        {['edit', 'add'].includes(type) ? (
+      <Cell rowItem={rowItem} handleContextMenu={handleContextMenu}>
+        {['edit', 'add'].includes(type as ChangeType) ? (
           <Input
             bordered={false}
             defaultValue={defaultValue}

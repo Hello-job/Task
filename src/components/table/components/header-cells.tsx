@@ -1,6 +1,6 @@
 import { ReactNode, memo, useState } from 'react';
 
-import type { ColumnType } from './interface';
+import type { ColumnType } from '@/stores/application/types';
 
 interface HeaderType {
   columns: ColumnType[];

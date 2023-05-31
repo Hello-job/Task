@@ -1,11 +1,17 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
 import { formWidget } from '../config';
 import FixLeftCell from './fix-left-cell';
-import FixLeftCellMenu from './fix-left-cell-menu';
+import TdMenu from './td-menu';
+import Cell from '../custom-field/cell';
 import type { MouseEvent } from 'react';
-import type { TableContentProps, ColumnType } from '../interface';
+import type { TableProps } from '../../index';
+import type { rowDataType, ColumnType } from '@/stores/application/types';
 
 type ChangeType = 'edit' | 'add';
+
+type TableContentProps = TableProps & {
+  [key: string]: any;
+};
 
 const TableContent = ({
   visibleList,
@@ -15,6 +21,7 @@ const TableContent = ({
 }: TableContentProps) => {
   const [beginColumn, ...otherColumn] = columns;
 
+  // 单元格右击菜单
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuPosition, setMenuPosition] = useState({
     x: 0,
@@ -51,7 +58,7 @@ const TableContent = ({
    * @return {void}
    */
   const onChangeRow = useCallback(
-    (type: ChangeType, row: any) => {
+    (type: ChangeType, row: rowDataType) => {
       visibleList.forEach(item => {
         if (item.id === row.id) {
           item.type = type;
@@ -67,7 +74,10 @@ const TableContent = ({
    */
   const rowWidth = useMemo(() => {
     return columns.reduce((pre, item) => {
-      return pre + item.width;
+      if (item.width) {
+        return pre + item.width;
+      }
+      return pre;
     }, 0);
   }, [columns]);
 
@@ -84,6 +94,7 @@ const TableContent = ({
           const oldVisibleList = [...visibleList];
           oldVisibleList.push({
             id: 99,
+            title: '',
             type: 'add'
           });
           setVisibleList(oldVisibleList);
@@ -98,7 +109,7 @@ const TableContent = ({
       {/* 行数据 */}
       {visibleList.map(item => {
         return (
-          <div id={item.id} className="box-border text-center" key={item.id}>
+          <div className="box-border text-center" key={item.id}>
             <div className="flex items-center h-[37px]">
               <FixLeftCell
                 column={beginColumn}
@@ -115,13 +126,15 @@ const TableContent = ({
                     key={column.name}
                     style={{ width }}
                     className="h-full border-l-0 border-t border-b border-r border-solid border-baseGray flex items-center">
-                    {WidgetCell && (
-                      <WidgetCell
-                        column={column}
-                        rowItem={item}
-                        onChange={onChange}
-                      />
-                    )}
+                    <Cell rowItem={item} handleContextMenu={handleContextMenu}>
+                      {WidgetCell && (
+                        <WidgetCell
+                          column={column}
+                          rowItem={item}
+                          onChange={onChange}
+                        />
+                      )}
+                    </Cell>
                   </div>
                 );
               })}
@@ -132,7 +145,7 @@ const TableContent = ({
       {/* 新增行 */}
       <AddRow />
       {/* 右键操作 */}
-      {menuVisible && <FixLeftCellMenu menuPosition={menuPosition} />}
+      {menuVisible && <TdMenu menuPosition={menuPosition} />}
     </div>
   );
 };

@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import FieldSetting from '../field-setting';
-import type { ColumnOperationType } from './interface';
+
+interface ColumnOperationType {
+  type: string;
+  onClose: () => void;
+}
 
 const ColumnOperation: React.FC<ColumnOperationType> = ({
   type,

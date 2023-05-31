@@ -129,7 +129,6 @@ export function upload(url: string, data: any) {
 }
 
 // 更多方法带项目完善
-
 export default {
   get,
   post,

@@ -1,8 +1,9 @@
 import type { ColumnType } from '@/view/project-overview/interface';
+import type { rowDataType } from '@/stores/application/types';
 
 interface IProps {
   column: ColumnType;
-  rowItem: any;
+  rowItem: rowDataType;
   onChange: (params: any) => void;
 }
 
