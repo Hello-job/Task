@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import { message, Modal, Form, Input, Button } from 'antd';
-import { Icon } from '@/components';
+import { Icon, CustomModal } from '@/components';
 import { data } from './data';
 
 const Project = () => {
@@ -51,7 +51,14 @@ const Project = () => {
         <div
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4  h-[100px] border border-solid border-[#dce2ef] rounded cursor-pointer hover:shadow-lg flex items-center mr-5 mb-5"
           onClick={() => {
-            setOpen(true);
+            // setOpen(true);
+            CustomModal.confirm({
+              title: '测试',
+              content: '确认信息',
+              onConfirm: () => {
+                console.log('>>>>>成');
+              }
+            });
           }}>
           <div className="w-full h-full bg-[#f1f3f9] flex justify-center items-center text-lg text-violet">
             <Icon type="icona-automationadd" className="mr-5" />
@@ -59,7 +66,13 @@ const Project = () => {
           </div>
         </div>
       </div>
-      <Modal open={open}>
+      {/* <Modal
+        open={open}
+        centered={true}
+        closable={}
+        onCancel={() => {
+          setOpen(false);
+        }}>
         <Form form={form}>
           <Form.Item label="项目名称">
             <Input />
@@ -70,7 +83,18 @@ const Project = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
+      </Modal> */}
+      {/* <CustomModal
+        title="测试"
+        open={open}
+        centered={true}
+        closable={false}
+        onOk={() => {
+          setOpen(false);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}></CustomModal> */}
     </div>
   );
 };
