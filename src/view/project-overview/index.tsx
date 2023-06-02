@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import VritualList from '@/components/virtual-list/indedx';
-import faker from 'faker';
 import Table from '@/components/table';
 import type { ColumnType } from './interface';
 import { dataSource } from './data';
@@ -15,7 +14,7 @@ interface onChangeRow {
 const ProjectOverView = () => {
   const listData = [];
   for (let i = 0; i < 3; i++) {
-    listData.push({ id: i, value: faker.lorem.sentences() });
+    listData.push({ id: i, value: '测试数据' });
   }
 
   const columns: ColumnType[] = [

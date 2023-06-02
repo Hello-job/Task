@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
-import { message, Modal, Form, Input, Button } from 'antd';
+import { message, Form, Input } from 'antd';
 import { Icon, CustomModal } from '@/components';
 import { data } from './data';
-
+import { Button, Modal } from 'surprisec-react-components';
 const Project = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
@@ -21,6 +21,13 @@ const Project = () => {
       });
     }
   }, []);
+
+  const onFinish = (values: any) => {
+    form.setFieldsValue({
+      name: ''
+    });
+    setOpen(false);
+  };
 
   return (
     <div className="w-full h-full rounded-md bg-skin-bg-base p-2.5">
@@ -51,14 +58,7 @@ const Project = () => {
         <div
           className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4  h-[100px] border border-solid border-[#dce2ef] rounded cursor-pointer hover:shadow-lg flex items-center mr-5 mb-5"
           onClick={() => {
-            // setOpen(true);
-            CustomModal.confirm({
-              title: '测试',
-              content: '确认信息',
-              onConfirm: () => {
-                console.log('>>>>>成');
-              }
-            });
+            setOpen(true);
           }}>
           <div className="w-full h-full bg-[#f1f3f9] flex justify-center items-center text-lg text-violet">
             <Icon type="icona-automationadd" className="mr-5" />
@@ -66,35 +66,21 @@ const Project = () => {
           </div>
         </div>
       </div>
-      {/* <Modal
+      <Modal
         open={open}
         centered={true}
-        closable={}
         onCancel={() => {
-          setOpen(false);
-        }}>
-        <Form form={form}>
-          <Form.Item label="项目名称">
-            <Input />
-          </Form.Item>
-          <Form.Item label="项目名称">
-            <Button type="primary" onClick={() => setOpen(false)}>
-              确认
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal> */}
-      {/* <CustomModal
-        title="测试"
-        open={open}
-        centered={true}
-        closable={false}
-        onOk={() => {
           setOpen(false);
         }}
-        onCancel={() => {
-          setOpen(false);
-        }}></CustomModal> */}
+        onOk={() => {
+          form.submit();
+        }}>
+        <Form layout="vertical" form={form} onFinish={onFinish}>
+          <Form.Item label="项目名称" name="name">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

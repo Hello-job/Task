@@ -2,22 +2,36 @@ import { useRef, useState, useMemo, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Icon } from '@/components';
 import { fields } from './data';
-import type { Field } from './data';
+import cls from 'classnames';
+import { widgets } from './components';
+import type { FieldType } from './data';
+import type { ColumnType } from '@/stores/application/types';
 
 interface FieldSettingType {
+  column?: ColumnType;
   onClose: () => void;
 }
 
 const settingFieldWidth = 336;
 const offsetWidth = 10;
-const FieldSetting = ({ onClose }: FieldSettingType) => {
+const FieldSetting = ({ column, onClose }: FieldSettingType) => {
   const [form] = Form.useForm();
   const settingFieldRef = useRef<HTMLDivElement>(null);
   const [showFields, setShowFields] = useState(false);
   const [settingOffset, setSettingOffset] = useState({ left: 300, top: 0 });
+  const [currentField, setCurrentField] = useState<null | FieldType>(null);
 
   const visibleFields = useMemo(() => {
     return Object.values(fields);
+  }, []);
+
+  useEffect(() => {
+    if (!column) {
+      setCurrentField(visibleFields[0]);
+      form.setFieldsValue({
+        name: visibleFields[0].name
+      });
+    }
   }, []);
 
   const handleSettingFieldsoffset = () => {
@@ -66,6 +80,13 @@ const FieldSetting = ({ onClose }: FieldSettingType) => {
     handleSettingFieldsoffset();
   }, [showFields]);
 
+  const FieldConfigCom = useMemo(() => {
+    if (currentField) {
+      const Widget = widgets[currentField?.key];
+      return Widget;
+    }
+  }, [currentField]);
+
   const settingFields = (
     <div
       style={{ left: settingOffset.left, top: settingOffset.top }}
@@ -73,11 +94,24 @@ const FieldSetting = ({ onClose }: FieldSettingType) => {
       <div className="p-4 flex flex-col">
         <p className="text-left">基础字段</p>
         <div className="flex">
-          {visibleFields.map((field: Field) => {
+          {visibleFields.map((field: FieldType) => {
             return (
               <div
                 key={field.icon}
-                className="w-20 h-20 mb-4 mr-4 text-textGray flex flex-col items-center justify-center rounded-4px border border-solid border-[#f1f3f9] hover:border-violet rounded-[4px]">
+                className={cls(
+                  'w-20 h-20 mb-4 mr-4 text-textGray flex flex-col items-center justify-center rounded-4px border border-solid border-[#f1f3f9] rounded-[4px]',
+                  {
+                    'border-violet': field.key === currentField?.key,
+                    'text-violet': field.key === currentField?.key
+                  }
+                )}
+                onClick={() => {
+                  setCurrentField(field);
+                  form.setFieldsValue({
+                    name: field.name
+                  });
+                  setShowFields(false);
+                }}>
                 <Icon type={field.icon} />
                 <span>{field.name}</span>
               </div>
@@ -94,7 +128,7 @@ const FieldSetting = ({ onClose }: FieldSettingType) => {
       ref={settingFieldRef}>
       <Form form={form} layout="vertical">
         <>{showFields && settingFields}</>
-        <Form.Item label="列名" required>
+        <Form.Item label="列名" name="name" required>
           <Input placeholder="请输入列名" />
         </Form.Item>
         <Form.Item label="列类型">
@@ -103,10 +137,16 @@ const FieldSetting = ({ onClose }: FieldSettingType) => {
             onClick={() => {
               setShowFields(!showFields);
             }}>
-            <span>自定义</span>
+            <span>{currentField?.name}</span>
             <Icon type="iconxcx_open" rotate={showFields ? 180 : 0} />
           </div>
         </Form.Item>
+        {FieldConfigCom && (
+          <div className="border-0 border-t-[1px] border-solid border-textLight pt-2 ">
+            <FieldConfigCom />
+          </div>
+        )}
+
         <div className="flex justify-end">
           <Button
             onClick={e => {

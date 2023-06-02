@@ -10,6 +10,7 @@ import router from './router';
 import 'antd/dist/reset.css';
 import './style/tailwind.css';
 import './style/reset.less';
+import 'surprisec-react-components/style';
 
 export default function App() {
   return (

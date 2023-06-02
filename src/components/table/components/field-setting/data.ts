@@ -1,25 +1,25 @@
-type Field = {
+type FieldType = {
   key: string;
   name: string;
   icon: string;
 };
 
-type Fields = {
-  [key: string]: Field;
+type FieldsType = {
+  [key: string]: FieldType;
 };
 
-const fields: Fields = {
+const fields: FieldsType = {
   textarea: {
     key: 'textarea',
     name: '多行文本',
     icon: 'iconsingle_line_text'
   },
   select: {
-    key: 'textarea',
+    key: 'select',
     name: '单选',
     icon: 'iconsingle_choice'
   }
 };
 
 export { fields };
-export type { Fields, Field };
+export type { FieldsType, FieldType };
