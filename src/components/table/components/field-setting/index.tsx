@@ -66,7 +66,7 @@ const FieldSetting = ({ column, onClose }: FieldSettingType) => {
     const settingFieldDom = settingFieldRef.current;
     function handleMouseDown(e: MouseEvent) {
       if (!settingFieldDom?.contains(e.target as HTMLElement)) {
-        onClose();
+        // onClose();
       }
     }
     window.addEventListener('mousedown', handleMouseDown);
@@ -80,12 +80,22 @@ const FieldSetting = ({ column, onClose }: FieldSettingType) => {
     handleSettingFieldsoffset();
   }, [showFields]);
 
+  const onFinish = (values: any) => {
+    console.log('>>>>>>value', values);
+  };
+
   const FieldConfigCom = useMemo(() => {
     if (currentField) {
       const Widget = widgets[currentField?.key];
       return Widget;
     }
   }, [currentField]);
+
+  const FieldConfigComProps = useMemo(() => {
+    return {
+      form
+    };
+  }, [form]);
 
   const settingFields = (
     <div
@@ -126,7 +136,7 @@ const FieldSetting = ({ column, onClose }: FieldSettingType) => {
     <div
       className="w-[336px] p-5 rounded-[4px] shadow-base relative bg-white"
       ref={settingFieldRef}>
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         <>{showFields && settingFields}</>
         <Form.Item label="列名" name="name" required>
           <Input placeholder="请输入列名" />
@@ -143,7 +153,7 @@ const FieldSetting = ({ column, onClose }: FieldSettingType) => {
         </Form.Item>
         {FieldConfigCom && (
           <div className="border-0 border-t-[1px] border-solid border-textLight pt-2 ">
-            <FieldConfigCom />
+            <FieldConfigCom {...FieldConfigComProps} />
           </div>
         )}
 
@@ -162,7 +172,8 @@ const FieldSetting = ({ column, onClose }: FieldSettingType) => {
             onClick={e => {
               e.stopPropagation();
               e.preventDefault();
-              onClose();
+              //   onClose();
+              form.submit();
             }}>
             确定
           </Button>

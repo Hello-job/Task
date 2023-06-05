@@ -33,12 +33,12 @@ module.exports = {
     // 强制使用useState结构名称如: [xxx, setXxx] = useState
     'react/hook-use-state': 1,
     // 强制不可使用{...props}
-    'react/jsx-props-no-spreading': [
-      1,
-      {
-        exceptions: ['Route'] // 此元素列外
-      }
-    ],
+    // 'react/jsx-props-no-spreading': [
+    //   1,
+    //   {
+    //     exceptions: ['Route'] // 此元素列外
+    //   }
+    // ],
     semi: 'error', //语句强制分号结尾
     'prettier/prettier': [
       'error',

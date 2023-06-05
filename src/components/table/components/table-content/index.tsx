@@ -28,7 +28,7 @@ const TableContent = ({
     y: 0
   });
 
-  const onListeners = (e: any) => {
+  const onListeners = (e: Event) => {
     if (menuVisible) {
       setMenuVisible(false);
     }
