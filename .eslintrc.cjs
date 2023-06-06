@@ -26,8 +26,13 @@ module.exports = {
     'arrow-body-style': 'off',
     'prefer-arrow-callback': 'off',
     eqeqeq: [2, 'allow-null'], // 使用 === 替代 ==
-    //不能有声明后未被使用的变量或参数
-    'no-unused-vars': [1, { vars: 'all', args: 'after-used' }],
+    // 未使用的变量(禁止出现)
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    // 关闭禁止使用any
+    '@typescript-eslint/no-explicit-any': 'off',
+    // 未使用的表达式禁止出现(禁止出现)
+    'no-unused-expressions': 'off',
     // 驼峰命名
     camelcase: 'warn',
     // 强制使用useState结构名称如: [xxx, setXxx] = useState

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import { message, Form, Input } from 'antd';
-import { Icon, CustomModal } from '@/components';
+import { Icon } from '@/components';
 import { data } from './data';
-import { Button, Modal } from 'surprisec-react-components';
+import { Modal } from 'surprisec-react-components';
 const Project = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);

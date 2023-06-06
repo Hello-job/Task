@@ -14,7 +14,10 @@ interface FieldSettingType {
 
 const settingFieldWidth = 336;
 const offsetWidth = 10;
-const FieldSetting = ({ column, onClose }: FieldSettingType) => {
+const FieldSetting: React.FC<FieldSettingType> = ({
+  column,
+  onClose
+}: FieldSettingType) => {
   const [form] = Form.useForm();
   const settingFieldRef = useRef<HTMLDivElement>(null);
   const [showFields, setShowFields] = useState(false);

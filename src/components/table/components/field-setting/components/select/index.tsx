@@ -20,7 +20,7 @@ const SelectColor = ({ value, onChange, form }: SelectItemProps) => {
   const options =
     form
       ?.getFieldValue('options')
-      ?.map((item: SelectItemType) => item.color)
+      ?.map((item: SelectItemType) => item?.color)
       ?.filter(Boolean) ?? [];
 
   return (
@@ -55,8 +55,8 @@ const Select: React.FC<Props> = ({ form }: Props) => {
     <>
       <Form.List name="options">
         {(fields, { add, remove }) => (
-          <>
-            {fields.map(({ key, name }) => {
+          <div className="max-h-40 overflow-auto my-2">
+            {fields.map(({ key, name }, index) => {
               return (
                 <div className="flex items-center mb-2.5" key={key}>
                   <Form.Item className="mb-0" name={[name, 'color']}>
@@ -68,7 +68,7 @@ const Select: React.FC<Props> = ({ form }: Props) => {
                   <Icon
                     type="icondelete24"
                     className="ml-4 text-base text-textLight"
-                    onClick={() => remove(key)}
+                    onClick={() => remove(index)}
                   />
                 </div>
               );
@@ -79,7 +79,7 @@ const Select: React.FC<Props> = ({ form }: Props) => {
               <Icon type="iconjia" />
               <span>新增选项</span>
             </div>
-          </>
+          </div>
         )}
       </Form.List>
     </>
