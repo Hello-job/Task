@@ -63,6 +63,14 @@ const ProjectOverView = () => {
         type: 'textarea'
       },
       width: 300
+    },
+    {
+      name: 'text2',
+      label: '多行文本',
+      field: {
+        type: 'textarea'
+      },
+      width: 300
     }
   ];
   const [visibleList, setVisibleList] = useState(dataSource);

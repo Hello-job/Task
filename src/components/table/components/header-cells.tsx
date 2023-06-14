@@ -1,5 +1,12 @@
-import { ReactNode, memo, useState } from 'react';
-
+import {
+  ReactNode,
+  memo,
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect
+} from 'react';
+import Sortable from 'sortablejs';
 import type { ColumnType } from '@/stores/application/types';
 
 interface HeaderType {
@@ -9,10 +16,12 @@ interface HeaderType {
 
 const HeaderCells = ({ columns, addThRender }: HeaderType) => {
   const [operationColumn, setOperationColumn] = useState<string | null>(null);
+  const sortHeaderCellRef = useRef(null);
   const [beginColumn, ...otherColumn] = columns;
   const onCloseFieldSetting = () => {
     setOperationColumn(null);
   };
+
   const HeaderLeft = () => {
     const { width } = beginColumn;
     return (
@@ -37,8 +46,22 @@ const HeaderCells = ({ columns, addThRender }: HeaderType) => {
   };
 
   const HeaderCell = () => {
+    useLayoutEffect(() => {
+      const sortableList = sortHeaderCellRef.current;
+      if (sortableList) {
+        const sortable = new Sortable(sortableList, {
+          animation: 150, // 拖动时的动画时长（毫秒）
+          draggable: '.rows',
+          // 其他选项和回调函数可以在这里添加
+          forceFallback: true,
+          onEnd: (event: Event) => {
+            console.log('>>>>>event', event);
+          }
+        });
+      }
+    }, []);
     return (
-      <ul className="flex h-full">
+      <ul id="headerCell" ref={sortHeaderCellRef} className="flex h-full">
         {otherColumn.map((item: any) => {
           return <HeaderContentItem key={item.name} {...item} />;
         })}
