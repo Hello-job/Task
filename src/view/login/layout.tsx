@@ -6,6 +6,7 @@ const Layout = () => {
   const {
     state: { pageType }
   } = useContext(LoginContext);
+
   const LayoutComponent = useMemo(() => {
     return LoginComponets[pageType];
   }, [pageType]);

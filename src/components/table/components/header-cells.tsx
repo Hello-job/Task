@@ -1,11 +1,4 @@
-import {
-  ReactNode,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect
-} from 'react';
+import { ReactNode, memo, useRef, useState, useLayoutEffect } from 'react';
 import Sortable from 'sortablejs';
 import type { ColumnType } from '@/stores/application/types';
 
@@ -22,6 +15,20 @@ const HeaderCells = ({ columns, addThRender }: HeaderType) => {
     setOperationColumn(null);
   };
 
+  useLayoutEffect(() => {
+    const sortableList = sortHeaderCellRef.current;
+    if (sortableList) {
+      const sortable = new Sortable(sortableList, {
+        animation: 150, // 拖动时的动画时长（毫秒）
+        handle: '#headerCell',
+        // 其他选项和回调函数可以在这里添加
+        onEnd: (event: Event) => {
+          console.log('>>>>>event', event);
+        }
+      });
+    }
+  }, []);
+
   const HeaderLeft = () => {
     const { width } = beginColumn;
     return (
@@ -37,6 +44,7 @@ const HeaderCells = ({ columns, addThRender }: HeaderType) => {
     const { width } = item;
     return (
       <li
+        id="headerCell"
         key={item.name}
         className="border-solid border-l-0 border-t border-b border-r border-baseGray text-textGray h-full flex items-center px-2"
         style={{ width }}>
@@ -46,22 +54,8 @@ const HeaderCells = ({ columns, addThRender }: HeaderType) => {
   };
 
   const HeaderCell = () => {
-    useLayoutEffect(() => {
-      const sortableList = sortHeaderCellRef.current;
-      if (sortableList) {
-        const sortable = new Sortable(sortableList, {
-          animation: 150, // 拖动时的动画时长（毫秒）
-          draggable: '.rows',
-          // 其他选项和回调函数可以在这里添加
-          forceFallback: true,
-          onEnd: (event: Event) => {
-            console.log('>>>>>event', event);
-          }
-        });
-      }
-    }, []);
     return (
-      <ul id="headerCell" ref={sortHeaderCellRef} className="flex h-full">
+      <ul ref={sortHeaderCellRef} className="flex h-full">
         {otherColumn.map((item: any) => {
           return <HeaderContentItem key={item.name} {...item} />;
         })}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon, Avatar } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
@@ -7,6 +7,8 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import type { UploadChangeParam } from 'antd/es/upload';
 import { useDispatch } from 'react-redux';
 import type { Dispatch } from '@/stores';
+import { Modal } from 'surprisec-react-components';
+import { Tabs } from 'antd';
 
 interface UserDetailInfoType {
   personalInfo: any;
@@ -21,16 +23,21 @@ function UserCard({
 }: UserDetailInfoType) {
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch>();
+  const [open, setOpen] = useState(false);
+
+  const handleMOuseDown = (e: MouseEvent) => {
+    if (open) return;
+    setOpenUserPopover(userPopRef?.current?.contains(e.target));
+  };
+
   useEffect(() => {
     if (!userPopRef) return;
-    function handleMOuseDown(e: MouseEvent) {
-      setOpenUserPopover(userPopRef?.current?.contains(e.target));
-    }
+    window.removeEventListener('mousedown', handleMOuseDown);
     window.addEventListener('mousedown', handleMOuseDown);
     return () => {
       window.removeEventListener('mousedown', handleMOuseDown);
     };
-  }, []);
+  }, [open]);
 
   const handleExitLogin = () => {
     Storage.local.clear();
@@ -54,7 +61,7 @@ function UserCard({
 
   return (
     <div
-      className="w-80 rounded-md overflow-hidden absolute top-8 right-0 shadow-md z-10 bg-skin-bg-base"
+      className="w-80 userInfo rounded-md overflow-hidden absolute top-8 right-0 shadow-md z-10 bg-skin-bg-base"
       onClick={e => {
         e.stopPropagation();
       }}>
@@ -65,8 +72,12 @@ function UserCard({
               personalInfo={personalInfo}
               className="text-[20px] bg-amber-200"
             />
-            <div className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block">
-              <Upload
+            <div
+              className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block"
+              onClick={() => {
+                setOpen(true);
+              }}>
+              {/* <Upload
                 showUploadList={false}
                 beforeUpload={() => false}
                 onChange={handleChange}>
@@ -74,7 +85,7 @@ function UserCard({
                   className="text-lg text-skin-text-white"
                   type="icondetails_edit"
                 />
-              </Upload>
+              </Upload> */}
             </div>
           </div>
         </div>
@@ -107,6 +118,61 @@ function UserCard({
           退出登陆
         </div>
       </div>
+      <Modal
+        title="上传图像"
+        open={open}
+        onOk={() => {
+          setOpen(false);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}>
+        <div className="w-full flex ">
+          <div className="w-[210px] flex flex-col">
+            <div className="h-[46px] leading-[46px]">预览</div>
+            <div className="w-full flex justify-center items-center">
+              <div className="w-12 h-12 relative overflow-hidden group">
+                <Avatar
+                  personalInfo={personalInfo}
+                  className="text-[20px] bg-amber-200"
+                />
+                <div
+                  className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block"
+                  onClick={() => {
+                    setOpen(true);
+                  }}>
+                  {/* <Upload
+                showUploadList={false}
+                beforeUpload={() => false}
+                onChange={handleChange}>
+                <Icon
+                  className="text-lg text-skin-text-white"
+                  type="icondetails_edit"
+                />
+              </Upload> */}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-[436px]">
+            <Tabs
+              defaultActiveKey="1"
+              items={[
+                {
+                  label: `Tab 1`,
+                  key: '1',
+                  children: `Content of Tab Pane 1`
+                },
+                {
+                  label: `Tab 2`,
+                  key: '2',
+                  children: `Content of Tab Pane 2`
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -53,6 +53,7 @@ const loginForm = () => {
               }
               type="password"
               placeholder="请输入密码"
+              onPressEnter={() => form.submit()}
             />
           </Form.Item>
           <Form.Item>

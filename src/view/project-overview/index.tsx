@@ -4,6 +4,7 @@ import Table from '@/components/table';
 import type { ColumnType } from './interface';
 import { dataSource } from './data';
 import type { rowItemType } from './data';
+import { Loading } from 'surprisec-react-components';
 
 interface onChangeRow {
   column: ColumnType;
