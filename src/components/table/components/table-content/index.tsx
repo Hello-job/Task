@@ -9,7 +9,7 @@ import type { rowDataType, ColumnType } from '@/stores/application/types';
 
 type ChangeType = 'edit' | 'add';
 
-type TableContentProps = TableProps & {
+type TableContentProps = Omit<TableProps, 'handleColumnsAction'> & {
   [key: string]: any;
 };
 
@@ -27,10 +27,17 @@ const TableContent = ({
     x: 0,
     y: 0
   });
+  // 鼠标左键长按
+  const [mouseDown, setMouseDown] = useState<boolean>(false);
+  const [mouseCells, setMouseCells] = useState<rowDataType[]>([]);
 
   const onListeners = (e: Event) => {
     if (menuVisible) {
       setMenuVisible(false);
+    }
+
+    if (mouseCells.length) {
+      setMouseCells([]);
     }
   };
 
@@ -40,6 +47,21 @@ const TableContent = ({
       document.removeEventListener('mousedown', onListeners);
     };
   }, [onListeners]);
+
+  const handleMouseUp = () => {
+    console.log('>>>>>进来了了');
+
+    if (mouseDown) {
+      setMouseDown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [handleMouseUp]);
 
   /**
    * 鼠标右键操作
@@ -115,6 +137,8 @@ const TableContent = ({
                 column={beginColumn}
                 rowItem={item}
                 onChange={onChange}
+                mouseDown={mouseDown}
+                setMouseDown={setMouseDown}
                 onChangeRow={onChangeRow}
                 handleContextMenu={handleContextMenu}
               />
@@ -123,10 +147,17 @@ const TableContent = ({
                 const { width } = column;
                 return (
                   <div
+                    data-id={item.id}
                     key={column.name}
                     style={{ width }}
                     className="h-full border-l-0 border-t border-b border-r border-solid border-baseGray flex items-center">
-                    <Cell rowItem={item} handleContextMenu={handleContextMenu}>
+                    <Cell
+                      mouseDown={mouseDown}
+                      setMouseDown={setMouseDown}
+                      mouseCells={mouseCells}
+                      setMouseCells={setMouseCells}
+                      rowItem={item}
+                      handleContextMenu={handleContextMenu}>
                       {WidgetCell && (
                         <WidgetCell
                           column={column}

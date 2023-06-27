@@ -1,13 +1,19 @@
 import { ReactNode, memo, useRef, useState, useLayoutEffect } from 'react';
 import Sortable from 'sortablejs';
 import type { ColumnType } from '@/stores/application/types';
+import type { operationColumnType } from '@/view/project-overview/interface';
 
 interface HeaderType {
   columns: ColumnType[];
   addThRender: (params: any) => ReactNode;
+  handleColumnsAction: (params: operationColumnType) => void;
 }
 
-const HeaderCells = ({ columns, addThRender }: HeaderType) => {
+const HeaderCells = ({
+  columns,
+  addThRender,
+  handleColumnsAction
+}: HeaderType) => {
   const [operationColumn, setOperationColumn] = useState<string | null>(null);
   const sortHeaderCellRef = useRef(null);
   const [beginColumn, ...otherColumn] = columns;
@@ -75,7 +81,8 @@ const HeaderCells = ({ columns, addThRender }: HeaderType) => {
         {operationColumn &&
           addThRender({
             type: 'add',
-            onClose: onCloseFieldSetting
+            onClose: onCloseFieldSetting,
+            handleColumnsAction
           })}
       </div>
     );

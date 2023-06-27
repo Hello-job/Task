@@ -1,12 +1,14 @@
-interface fieldType {
-  type: string;
-  props?: any;
-}
-interface ColumnType {
-  name: string;
-  label: string;
-  field: fieldType;
-  width?: number;
+import type { rowDataType, ColumnType } from '@/stores/project/types';
+interface onChangeRow {
+  column: ColumnType;
+  rowItem: rowDataType;
+  value: any;
 }
 
-export type { ColumnType };
+type actionColumnType = 'add' | 'edit' | 'delete';
+interface operationColumnType {
+  type: actionColumnType;
+  column: ColumnType;
+}
+
+export type { onChangeRow, operationColumnType };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Icon, Avatar } from '@/components';
+import { colors } from '@/components/select-color';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import { Upload } from 'antd';
@@ -8,7 +9,7 @@ import type { UploadChangeParam } from 'antd/es/upload';
 import { useDispatch } from 'react-redux';
 import type { Dispatch } from '@/stores';
 import { Modal } from 'surprisec-react-components';
-import { Tabs } from 'antd';
+import { Tabs, Button } from 'antd';
 
 interface UserDetailInfoType {
   personalInfo: any;
@@ -76,17 +77,7 @@ function UserCard({
               className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block"
               onClick={() => {
                 setOpen(true);
-              }}>
-              {/* <Upload
-                showUploadList={false}
-                beforeUpload={() => false}
-                onChange={handleChange}>
-                <Icon
-                  className="text-lg text-skin-text-white"
-                  type="icondetails_edit"
-                />
-              </Upload> */}
-            </div>
+              }}></div>
           </div>
         </div>
         <div>
@@ -131,42 +122,59 @@ function UserCard({
           <div className="w-[210px] flex flex-col">
             <div className="h-[46px] leading-[46px]">预览</div>
             <div className="w-full flex justify-center items-center">
-              <div className="w-12 h-12 relative overflow-hidden group">
+              <div className="w-24 h-24 mt-[70px] mb-[20px] relative overflow-hidden group">
                 <Avatar
                   personalInfo={personalInfo}
                   className="text-[20px] bg-amber-200"
                 />
-                <div
-                  className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block"
-                  onClick={() => {
-                    setOpen(true);
-                  }}>
-                  {/* <Upload
-                showUploadList={false}
-                beforeUpload={() => false}
-                onChange={handleChange}>
-                <Icon
-                  className="text-lg text-skin-text-white"
-                  type="icondetails_edit"
-                />
-              </Upload> */}
-                </div>
               </div>
             </div>
           </div>
           <div className="w-[436px]">
             <Tabs
+              className="h-full"
               defaultActiveKey="1"
               items={[
                 {
-                  label: `Tab 1`,
+                  label: `自定义 `,
                   key: '1',
-                  children: `Content of Tab Pane 1`
+                  children: (
+                    <div className="w-full h-[336px] mt-[30px]">
+                      <div className="w-full flex flex-wrap">
+                        {colors.map(color => {
+                          return (
+                            <div
+                              key={color}
+                              style={{ backgroundColor: color }}
+                              className="w-10 h-10 rounded-full mb-5 mr-5"></div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )
                 },
                 {
-                  label: `Tab 2`,
+                  label: `默认`,
                   key: '2',
-                  children: `Content of Tab Pane 2`
+                  children: (
+                    <div className="w-full h-[336px] flex pt-[80px] justify-center">
+                      <Upload
+                        showUploadList={false}
+                        beforeUpload={() => false}
+                        onChange={handleChange}>
+                        <Button
+                          type="primary"
+                          icon={
+                            <Icon
+                              className="text-lg text-white"
+                              type="icondetails_edit"
+                            />
+                          }>
+                          选择图片
+                        </Button>
+                      </Upload>
+                    </div>
+                  )
                 }
               ]}
             />

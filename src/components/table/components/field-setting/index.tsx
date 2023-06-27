@@ -6,17 +6,21 @@ import cls from 'classnames';
 import { widgets } from './components';
 import type { FieldType } from './data';
 import type { ColumnType } from '@/stores/application/types';
+import type { operationColumnType } from '@/view/project-overview/interface';
 
 interface FieldSettingType {
   column?: ColumnType;
+
   onClose: () => void;
+  handleColumnsAction: (params: operationColumnType) => void;
 }
 
 const settingFieldWidth = 336;
 const offsetWidth = 10;
 const FieldSetting: React.FC<FieldSettingType> = ({
   column,
-  onClose
+  onClose,
+  handleColumnsAction
 }: FieldSettingType) => {
   const [form] = Form.useForm();
   const settingFieldRef = useRef<HTMLDivElement>(null);
@@ -85,6 +89,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
 
   const onFinish = (values: any) => {
     console.log('>>>>>>value', values);
+    handleColumnsAction;
   };
 
   const FieldConfigCom = useMemo(() => {

@@ -84,4 +84,5 @@ const SelectColor = ({ value, options, onChange }: SelectColorProps) => {
   );
 };
 
+export { colors };
 export default SelectColor;

@@ -11,12 +11,16 @@ import type {
 const FixLeftCell = ({
   column,
   rowItem,
+  mouseDown,
+  setMouseDown,
   onChange,
   onChangeRow,
   handleContextMenu
 }: {
   column: ColumnType;
   rowItem: rowDataType;
+  mouseDown: boolean;
+  setMouseDown: (params: boolean) => void;
   onChange: (params: any) => void;
   onChangeRow: (type: ChangeType, row: rowDataType) => void;
   handleContextMenu: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
@@ -39,6 +43,7 @@ const FixLeftCell = ({
 
   return (
     <div
+      data-id={rowItem.id}
       key={name}
       style={{ width }}
       className="h-full border border-solid border-baseGray flex items-center"
