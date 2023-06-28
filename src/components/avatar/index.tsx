@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import type { CSSProperties } from 'react';
+
 import type { personalInfoType } from '@/stores/userInfo';
 
 import cls from 'classnames';
@@ -7,16 +9,18 @@ import cls from 'classnames';
 interface AvatarType {
   personalInfo?: personalInfoType;
   className?: string;
+  style?: CSSProperties;
 }
 
-const Avatar = ({ personalInfo, className }: AvatarType) => {
+const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
   return (
     <div
+      style={style}
       className={cls(
         'w-full h-full flex items-center justify-center text-sm overflow-hidden rounded-full shadow-md',
         className
       )}>
-      {personalInfo?.avatar ? (
+      {!personalInfo?.avatar ? (
         <img
           className="w-full h-full object-cover"
           src={personalInfo?.avatar}

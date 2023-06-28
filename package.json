@@ -32,7 +32,7 @@
     "react-sortablejs": "^6.1.4",
     "redux": "^4.2.1",
     "sortablejs": "^1.15.0",
-    "surprisec-react-components": "^0.0.6"
+    "surprisec-react-components": "^0.0.9"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

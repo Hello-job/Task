@@ -8,8 +8,9 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import type { UploadChangeParam } from 'antd/es/upload';
 import { useDispatch } from 'react-redux';
 import type { Dispatch } from '@/stores';
-import { Modal } from 'surprisec-react-components';
-import { Tabs, Button } from 'antd';
+import { Modal, Button } from 'surprisec-react-components';
+import { Tabs } from 'antd';
+import cls from 'classnames';
 
 interface UserDetailInfoType {
   personalInfo: any;
@@ -25,6 +26,7 @@ function UserCard({
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch>();
   const [open, setOpen] = useState(false);
+  const [activeColor, setActiveColor] = useState('');
 
   const handleMOuseDown = (e: MouseEvent) => {
     if (open) return;
@@ -72,6 +74,7 @@ function UserCard({
             <Avatar
               personalInfo={personalInfo}
               className="text-[20px] bg-amber-200"
+              style={{ backgroundColor: activeColor }}
             />
             <div
               className="absolute top-0 z-10 hidden w-full h-full bg-transparenBlack text-skin-text-white text-lg leading-10 group-hover:block"
@@ -125,7 +128,8 @@ function UserCard({
               <div className="w-24 h-24 mt-[70px] mb-[20px] relative overflow-hidden group">
                 <Avatar
                   personalInfo={personalInfo}
-                  className="text-[20px] bg-amber-200"
+                  className="bg-amber-200 text-white text-[30px] font-bold"
+                  style={{ backgroundColor: activeColor }}
                 />
               </div>
             </div>
@@ -139,14 +143,23 @@ function UserCard({
                   label: `自定义 `,
                   key: '1',
                   children: (
-                    <div className="w-full h-[336px] mt-[30px]">
+                    <div className="w-full h-[236px] pt-[30px]">
                       <div className="w-full flex flex-wrap">
                         {colors.map(color => {
                           return (
                             <div
                               key={color}
+                              onClick={() => {
+                                setActiveColor(color);
+                              }}
                               style={{ backgroundColor: color }}
-                              className="w-10 h-10 rounded-full mb-5 mr-5"></div>
+                              className={cls(
+                                'w-10 h-10 rounded-full mb-5 mr-5',
+                                {
+                                  'border-2 border-solid border-violet':
+                                    color === activeColor
+                                }
+                              )}></div>
                           );
                         })}
                       </div>
@@ -157,7 +170,7 @@ function UserCard({
                   label: `默认`,
                   key: '2',
                   children: (
-                    <div className="w-full h-[336px] flex pt-[80px] justify-center">
+                    <div className="w-full h-[236px] flex pt-[80px] items-center flex-col">
                       <Upload
                         showUploadList={false}
                         beforeUpload={() => false}
@@ -173,6 +186,9 @@ function UserCard({
                           选择图片
                         </Button>
                       </Upload>
+                      <span className="mt-4 text-xs">
+                        支持 JPG、PNG 和 GIF 格式，图片大小需在 2 MB 以内
+                      </span>
                     </div>
                   )
                 }
