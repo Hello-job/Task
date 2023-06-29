@@ -62,8 +62,8 @@ dependencies:
     specifier: ^1.15.0
     version: 1.15.0
   surprisec-react-components:
-    specifier: ^0.0.9
-    version: 0.0.9(typescript@4.9.5)
+    specifier: ^0.1.0
+    version: 0.1.0(typescript@4.9.5)
 
 devDependencies:
   '@commitlint/config-conventional':
@@ -120,6 +120,9 @@ devDependencies:
   eslint-plugin-react:
     specifier: ^7.32.2
     version: 7.32.2(eslint@8.43.0)
+  eslint-plugin-react-hooks:
+    specifier: ^4.6.0
+    version: 4.6.0(eslint@8.43.0)
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -1037,8 +1040,8 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@rollup/plugin-typescript@11.1.1(typescript@4.9.5):
-    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
+  /@rollup/plugin-typescript@11.1.2(typescript@4.9.5):
+    resolution: {integrity: sha512-0ghSOCMcA7fl1JM+0gYRf+Q/HWyg+zg7/gDSc+fRLmlJWcW5K1I+CLRzaRhXf4Y3DRyPnnDo4M2ktw+a6JcDEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.14.0||^3.0.0
@@ -2472,7 +2475,7 @@ packages:
       eslint: 8.43.0
       eslint-config-alloy: 5.0.0(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(eslint-plugin-react@7.32.2)(eslint@8.43.0)(typescript@4.9.5)
       eslint-config-prettier: 8.8.0(eslint@8.43.0)
-      eslint-loader: 4.0.2(eslint@8.43.0)(webpack@5.88.0)
+      eslint-loader: 4.0.2(eslint@8.43.0)(webpack@5.88.1)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.60.1)(eslint@8.43.0)
       eslint-plugin-prettier: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.43.0)(prettier@2.8.8)
       eslint-plugin-react: 7.32.2(eslint@8.43.0)
@@ -2490,7 +2493,7 @@ packages:
       - supports-color
     dev: false
 
-  /eslint-loader@4.0.2(eslint@8.43.0)(webpack@5.88.0):
+  /eslint-loader@4.0.2(eslint@8.43.0)(webpack@5.88.1):
     resolution: {integrity: sha512-EDpXor6lsjtTzZpLUn7KmXs02+nIjGcgees9BYjNkWra3jVq5vVa8IoCKgzT2M7dNNeoMBtaSG83Bd40N3poLw==}
     engines: {node: '>= 10.13.0'}
     deprecated: This loader has been deprecated. Please use eslint-webpack-plugin
@@ -2504,7 +2507,7 @@ packages:
       loader-utils: 2.0.4
       object-hash: 2.2.0
       schema-utils: 2.7.1
-      webpack: 5.88.0
+      webpack: 5.88.1
     dev: false
 
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.60.1)(eslint-import-resolver-node@0.3.7)(eslint@8.43.0):
@@ -2592,7 +2595,6 @@ packages:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dependencies:
       eslint: 8.43.0
-    dev: false
 
   /eslint-plugin-react@7.32.2(eslint@8.43.0):
     resolution: {integrity: sha512-t2fBMa+XzonrrNkyVirzKlvn5RXzzPwRHtMvLAtVZrt8oxgnTQaYbU6SXTOO1mwQgp1y5+toMSKInnzGr0Knqg==}
@@ -5430,7 +5432,7 @@ packages:
     resolution: {integrity: sha512-tAk4lFCWHRzLgJBb/TuAkN5VAUfams78ykI4whswsW3fVuyr2IPiwGvln9kgKp+X7vbZTSaspGZTYHZxYlsV/w==}
     dependencies:
       '@ant-design/icons': 5.1.4(react-dom@18.2.0)(react@18.2.0)
-      '@rollup/plugin-typescript': 11.1.1(typescript@4.9.5)
+      '@rollup/plugin-typescript': 11.1.2(typescript@4.9.5)
       '@types/node': 18.16.18
       classnames: 2.3.2
       less: 4.1.3
@@ -5444,11 +5446,11 @@ packages:
       - typescript
     dev: false
 
-  /surprisec-react-components@0.0.9(typescript@4.9.5):
-    resolution: {integrity: sha512-GxiBqbU2gIbwU7MwAw+zF/vKB209qzJxghU0LoHXLa1Y2dt3KkMxuA6adFmlUxRFoSBGcrmpmGnAqKEKaLt3/A==}
+  /surprisec-react-components@0.1.0(typescript@4.9.5):
+    resolution: {integrity: sha512-2tnQ2ExOw8XQctYn1BS+nflzgdqHItQc1k7DbhUWrGHum4FbXLN6cNp2PuSoSXk58QaI3qZOHwlAWxXTvjrAPA==}
     dependencies:
       '@ant-design/icons': 5.1.4(react-dom@18.2.0)(react@18.2.0)
-      '@rollup/plugin-typescript': 11.1.1(typescript@4.9.5)
+      '@rollup/plugin-typescript': 11.1.2(typescript@4.9.5)
       '@types/node': 18.16.18
       classnames: 2.3.2
       less: 4.1.3
@@ -5500,7 +5502,7 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /terser-webpack-plugin@5.3.9(webpack@5.88.0):
+  /terser-webpack-plugin@5.3.9(webpack@5.88.1):
     resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -5521,7 +5523,7 @@ packages:
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
       terser: 5.18.2
-      webpack: 5.88.0
+      webpack: 5.88.1
     dev: false
 
   /terser@5.18.2:
@@ -5829,8 +5831,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: false
 
-  /webpack@5.88.0:
-    resolution: {integrity: sha512-O3jDhG5e44qIBSi/P6KpcCcH7HD+nYIHVBhdWFxcLOcIGN8zGo5nqF3BjyNCxIh4p1vFdNnreZv2h2KkoAw3lw==}
+  /webpack@5.88.1:
+    resolution: {integrity: sha512-FROX3TxQnC/ox4N+3xQoWZzvGXSuscxR32rbzjpXgEzWudJFEJBpdlkkob2ylrv5yzzufD1zph1OoFsLtm6stQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -5860,7 +5862,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9(webpack@5.88.0)
+      terser-webpack-plugin: 5.3.9(webpack@5.88.1)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:

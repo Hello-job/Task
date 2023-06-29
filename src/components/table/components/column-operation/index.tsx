@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import cls from 'classnames';
 import FieldSetting from '../field-setting';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
@@ -13,9 +14,12 @@ const ColumnOperation: React.FC<ColumnOperationType> = ({
   onClose,
   handleColumnsAction
 }: ColumnOperationType) => {
+  const columnOperationRef = useRef<HTMLDivElement>(null);
+  const [isViewRange, setIsViewRange] = useState<boolean>(true);
   const operationProps = {
     onClose
   };
+
   const operationWidget: Record<string, React.ReactNode> = {
     add: (
       <FieldSetting
@@ -25,11 +29,28 @@ const ColumnOperation: React.FC<ColumnOperationType> = ({
     )
   };
 
+  useEffect(() => {
+    const rect = columnOperationRef.current?.getBoundingClientRect();
+    const isViewRange = rect
+      ? rect?.right <= document.documentElement?.clientWidth
+      : true;
+    setIsViewRange(isViewRange);
+  }, []);
+
   const operOverlay = useMemo(() => {
     return operationWidget[type] ?? <></>;
   }, [type]);
 
-  return <div className=" absolute top-[37px] left-0">{operOverlay}</div>;
+  return (
+    <div
+      ref={columnOperationRef}
+      className={cls(
+        'absolute top-[37px]',
+        isViewRange ? 'left-0' : 'right-0'
+      )}>
+      {operOverlay}
+    </div>
+  );
 };
 
 export default ColumnOperation;

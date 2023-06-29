@@ -5,7 +5,7 @@ import { fields } from './data';
 import cls from 'classnames';
 import { widgets } from './components';
 import type { FieldType } from './data';
-import type { ColumnType } from '@/stores/application/types';
+import type { ColumnType } from '@/stores/project/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
 interface FieldSettingType {
@@ -73,7 +73,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
     const settingFieldDom = settingFieldRef.current;
     function handleMouseDown(e: MouseEvent) {
       if (!settingFieldDom?.contains(e.target as HTMLElement)) {
-        // onClose();
+        onClose();
       }
     }
     window.addEventListener('mousedown', handleMouseDown);

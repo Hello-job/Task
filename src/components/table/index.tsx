@@ -2,13 +2,13 @@ import HeaderCells from './components/header-cells';
 import TableContent from './components/table-content';
 import useThRender from './hooks/useThRender';
 
-import type { ColumnType, rowDataType } from '@/stores/application/types';
+import type { ColumnType, rowDataType } from '@/stores/project/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
 export interface TableProps {
   columns: ColumnType[];
   visibleList: rowDataType[];
-  onChange: any;
+  onRowChange: any;
   setVisibleList: (params: any) => void;
   handleColumnsAction: (params: operationColumnType) => void;
 }
@@ -16,13 +16,13 @@ export interface TableProps {
 const Table = ({
   columns,
   visibleList,
-  onChange,
+  onRowChange,
   setVisibleList,
   handleColumnsAction
 }: TableProps) => {
   const { addThRender } = useThRender();
   return (
-    <div>
+    <div className="overflow-auto h-full">
       <HeaderCells
         columns={columns}
         addThRender={addThRender}
@@ -31,7 +31,7 @@ const Table = ({
       <TableContent
         columns={columns}
         visibleList={visibleList}
-        onChange={onChange}
+        onRowChange={onRowChange}
         setVisibleList={setVisibleList}
       />
     </div>

@@ -1,30 +1,27 @@
-import { useState, memo } from 'react';
+import { useState, memo, useContext } from 'react';
 import { Input } from 'antd';
 import Cell from '../custom-field/cell';
-import type { ChangeEvent, MouseEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import type {
   rowDataType,
   ColumnType,
   ChangeType
-} from '@/stores/application/types';
+} from '@/stores/project/types';
+import { TableContentContext } from './context';
 
 const FixLeftCell = ({
   column,
   rowItem,
-  mouseDown,
-  setMouseDown,
   onChange,
-  onChangeRow,
-  handleContextMenu
+  onChangeRowState
 }: {
   column: ColumnType;
   rowItem: rowDataType;
-  mouseDown: boolean;
-  setMouseDown: (params: boolean) => void;
   onChange: (params: any) => void;
-  onChangeRow: (type: ChangeType, row: rowDataType) => void;
-  handleContextMenu: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
+  onChangeRowState: (type: ChangeType, row: rowDataType) => void;
 }) => {
+  const { onRightCellClick } = useContext(TableContentContext);
+
   const { width, name } = column;
   const defaultValue = rowItem[column.name];
   const [currentValue, setCurrentValue] = useState(defaultValue);
@@ -46,11 +43,14 @@ const FixLeftCell = ({
       data-id={rowItem.id}
       key={name}
       style={{ width }}
-      className="h-full border border-solid border-baseGray flex items-center"
+      className="h-full flex-shrink-0 border border-solid border-baseGray flex items-center sticky left-0 z-50 bg-white"
       onClick={() => {
-        onChangeRow('edit', rowItem);
+        onChangeRowState('edit', rowItem);
       }}>
-      <Cell rowItem={rowItem} handleContextMenu={handleContextMenu}>
+      <Cell
+        rowItem={rowItem}
+        column={column}
+        onRightCellClick={onRightCellClick}>
         {['edit', 'add'].includes(type as ChangeType) ? (
           <Input
             bordered={false}

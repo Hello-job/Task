@@ -3,6 +3,7 @@ type ChangeType = 'edit' | 'add';
 interface rowDataType {
   id: number;
   title: string;
+  index?: number;
   recordStatus?: number;
   type?: ChangeType;
   [key: string]: any;
@@ -18,6 +19,7 @@ interface ColumnType {
   name: string;
   label: string;
   field: fieldType;
+  index?: number;
   width?: number;
 }
 

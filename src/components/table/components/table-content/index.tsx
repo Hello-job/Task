@@ -5,7 +5,14 @@ import TdMenu from './td-menu';
 import Cell from '../custom-field/cell';
 import type { MouseEvent } from 'react';
 import type { TableProps } from '../../index';
-import type { rowDataType, ColumnType } from '@/stores/application/types';
+import type { rowDataType, ColumnType } from '@/stores/project/types';
+import { TableContentContextProvider } from './context';
+
+interface onChangeRow {
+  column: ColumnType;
+  rowItem: rowDataType;
+  value: any;
+}
 
 type ChangeType = 'edit' | 'add';
 
@@ -13,10 +20,28 @@ type TableContentProps = Omit<TableProps, 'handleColumnsAction'> & {
   [key: string]: any;
 };
 
+interface TableRowContextType {
+  onRowChange: (params: onChangeRow) => void;
+  onRightCellClick: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
+}
+
+const initXYRange = {
+  startRange: {
+    x: undefined,
+    y: undefined
+  },
+  endRange: {
+    x: undefined,
+    y: undefined
+  }
+};
+
+export type { TableRowContextType };
+
 const TableContent = ({
   visibleList,
   columns,
-  onChange,
+  onRowChange,
   setVisibleList
 }: TableContentProps) => {
   const [beginColumn, ...otherColumn] = columns;
@@ -29,17 +54,25 @@ const TableContent = ({
   });
   // 鼠标左键长按
   const [mouseDown, setMouseDown] = useState<boolean>(false);
+  const [selectedRange, setSelectedRange] = useState(initXYRange);
   const [mouseCells, setMouseCells] = useState<rowDataType[]>([]);
 
-  const onListeners = (e: Event) => {
-    if (menuVisible) {
-      setMenuVisible(false);
-    }
+  const onListeners = useCallback(
+    (e: Event) => {
+      if (menuVisible) {
+        setMenuVisible(false);
+      }
 
-    if (mouseCells.length) {
-      setMouseCells([]);
-    }
-  };
+      if (mouseCells.length) {
+        setMouseCells([]);
+      }
+
+      if (!mouseDown) {
+        setSelectedRange(initXYRange);
+      }
+    },
+    [mouseCells, menuVisible, mouseDown]
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', onListeners);
@@ -48,13 +81,11 @@ const TableContent = ({
     };
   }, [onListeners]);
 
-  const handleMouseUp = () => {
-    console.log('>>>>>进来了了');
-
+  const handleMouseUp = useCallback(() => {
     if (mouseDown) {
       setMouseDown(false);
     }
-  };
+  }, [mouseDown]);
 
   useEffect(() => {
     document.addEventListener('mouseup', handleMouseUp);
@@ -79,7 +110,7 @@ const TableContent = ({
    * @description 改变行状态
    * @return {void}
    */
-  const onChangeRow = useCallback(
+  const onChangeRowState = useCallback(
     (type: ChangeType, row: rowDataType) => {
       visibleList.forEach(item => {
         if (item.id === row.id) {
@@ -126,58 +157,71 @@ const TableContent = ({
     );
   };
 
+  /**
+   * TableRowContext
+   */
+  const TableRowContext = useMemo(
+    () => ({
+      onRowChange,
+      mouseDown,
+      selectedRange,
+      setMouseDown,
+      onRightCellClick: handleContextMenu,
+      setSelectedRange
+    }),
+    [handleContextMenu, onRowChange, selectedRange, mouseDown]
+  );
+
   return (
-    <div className="w-full flex flex-col">
-      {/* 行数据 */}
-      {visibleList.map(item => {
-        return (
-          <div className="box-border text-center" key={item.id}>
-            <div className="flex items-center h-[37px]">
-              <FixLeftCell
-                column={beginColumn}
-                rowItem={item}
-                onChange={onChange}
-                mouseDown={mouseDown}
-                setMouseDown={setMouseDown}
-                onChangeRow={onChangeRow}
-                handleContextMenu={handleContextMenu}
-              />
-              {otherColumn.map((column: ColumnType) => {
-                const WidgetCell = formWidget[column.field.type];
-                const { width } = column;
-                return (
-                  <div
-                    data-id={item.id}
-                    key={column.name}
-                    style={{ width }}
-                    className="h-full border-l-0 border-t border-b border-r border-solid border-baseGray flex items-center">
-                    <Cell
-                      mouseDown={mouseDown}
-                      setMouseDown={setMouseDown}
-                      mouseCells={mouseCells}
-                      setMouseCells={setMouseCells}
-                      rowItem={item}
-                      handleContextMenu={handleContextMenu}>
-                      {WidgetCell && (
-                        <WidgetCell
-                          column={column}
-                          rowItem={item}
-                          onChange={onChange}
-                        />
-                      )}
-                    </Cell>
-                  </div>
-                );
-              })}
+    <TableContentContextProvider value={TableRowContext}>
+      <div className="w-full flex flex-col">
+        {/* 行数据 */}
+        {visibleList.map(item => {
+          return (
+            <div className="box-border text-center" key={item.id}>
+              <div className="flex items-center h-[37px]">
+                <FixLeftCell
+                  column={beginColumn}
+                  rowItem={item}
+                  onChange={onRowChange}
+                  onChangeRowState={onChangeRowState}
+                />
+                {otherColumn.map((column: ColumnType) => {
+                  const WidgetCell = formWidget[column.field.type];
+                  const { width } = column;
+                  return (
+                    <div
+                      data-id={item.id}
+                      key={column.name}
+                      style={{ width }}
+                      className="h-full  flex-shrink-0  border-l-0 border-t border-b border-r border-solid border-baseGray flex items-center">
+                      <Cell
+                        column={column}
+                        mouseCells={mouseCells}
+                        setMouseCells={setMouseCells}
+                        rowItem={item}
+                        onRightCellClick={handleContextMenu}>
+                        {WidgetCell && (
+                          <WidgetCell
+                            column={column}
+                            rowItem={item}
+                            onChange={onRowChange}
+                          />
+                        )}
+                      </Cell>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        );
-      })}
-      {/* 新增行 */}
-      <AddRow />
-      {/* 右键操作 */}
-      {menuVisible && <TdMenu menuPosition={menuPosition} />}
-    </div>
+          );
+        })}
+        {/* 新增行 */}
+        <AddRow />
+        {/* 右键操作 */}
+        {menuVisible && <TdMenu menuPosition={menuPosition} />}
+      </div>
+    </TableContentContextProvider>
   );
 };
 

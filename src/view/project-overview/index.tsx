@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Table from '@/components/table';
-import type { ColumnType } from '@/stores/application/types';
+import type { ColumnType } from '@/stores/project/types';
 import type { rowItemType } from './data';
 
 interface onChangeRow {
@@ -21,24 +21,30 @@ const ProjectOverView = () => {
 
   const [visibleList, setVisibleList] = useState(dataSource);
 
-  const onChange = ({ column, rowItem, value }: onChangeRow) => {
-    visibleList.find(item => {
-      if (item.id === rowItem.id) {
-        rowItem[column.name] = value;
-      }
-    });
-    setVisibleList([...visibleList]);
-  };
+  const onRowChange = useCallback(
+    ({ column, rowItem, value }: onChangeRow) => {
+      visibleList.find(item => {
+        if (item.id === rowItem.id) {
+          rowItem[column.name] = value;
+        }
+      });
+      setVisibleList([...visibleList]);
+    },
+    [visibleList]
+  );
 
-  const handleColumnsAction = ({ type, column }: operationColumnType) => {
-    switch (type) {
-      case 'add': {
-        const newColumns = columns.push(column);
-        dispatch.project.setColumns(newColumns);
-        break;
+  const handleColumnsAction = useCallback(
+    ({ type, column }: operationColumnType) => {
+      switch (type) {
+        case 'add': {
+          const newColumns = columns.push(column);
+          dispatch.project.setColumns(newColumns);
+          break;
+        }
       }
-    }
-  };
+    },
+    [columns]
+  );
 
   return (
     <div className="w-full h-full bg-skin-bg-base rounded-sm flex flex-col p-5">
@@ -50,7 +56,7 @@ const ProjectOverView = () => {
       <Table
         columns={columns}
         visibleList={visibleList}
-        onChange={onChange}
+        onRowChange={onRowChange}
         setVisibleList={setVisibleList}
         handleColumnsAction={handleColumnsAction}
       />

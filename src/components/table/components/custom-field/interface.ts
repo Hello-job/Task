@@ -1,5 +1,4 @@
-import type { ColumnType } from '@/view/project-overview/interface';
-import type { rowDataType } from '@/stores/application/types';
+import type { rowDataType, ColumnType } from '@/stores/project/types';
 
 interface IProps {
   column: ColumnType;

@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/jsx-runtime',
+    "plugin:react-hooks/recommended",
     'plugin:prettier/recommended'
   ],
   parser: '@typescript-eslint/parser',
@@ -37,6 +38,8 @@ module.exports = {
     camelcase: 'warn',
     // 强制使用useState结构名称如: [xxx, setXxx] = useState
     'react/hook-use-state': 1,
+    // 依赖警告
+    "react-hooks/exhaustive-deps": "warn",
     // 强制不可使用{...props}
     'prettier/prettier': [
       'error',

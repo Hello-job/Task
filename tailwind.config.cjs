@@ -29,7 +29,8 @@ module.exports = {
         base: '0 4px 8px rgba(0,0,0,.07), 0 8px 28px rgba(0,0,0,.09)'
       },
       backgroundColor: {
-        mask: 'rgba(0, 0, 0, 0.45)',
+        mask: 'rgba(0, 0, 0, 0.45)', 
+        violetMask: 'rgb(123, 103, 238, 0.3)'
       },
       keyframes: {
         modalShow: {
