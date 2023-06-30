@@ -25,7 +25,7 @@ const Cell = ({
   column,
   onRightCellClick
 }: CellType) => {
-  const { selectedRange, setSelectedRange, mouseDown, setMouseDown } =
+  const { selectedRange, setSelectedRange, mouseDown, setMouseDown }: any =
     useContext(TableContentContext);
 
   const handleonMouseDown = (e: MouseEvent<HTMLDivElement>) => {
@@ -62,11 +62,6 @@ const Cell = ({
       !Object.values(endRange).some(item => item === void 0)
     ) {
       return endRange.x === column.index && endRange.y === rowItem.index;
-    } else if (
-      !Object.values(startRange).some(item => item === void 0) &&
-      Object.values(endRange).some(item => item === void 0)
-    ) {
-      return startRange.x === column.index && startRange.y === rowItem.index;
     }
     const [minX, maxX] = [startRange.x, endRange.x].sort();
     const [minY, maxY] = [startRange.y, endRange.y].sort();
