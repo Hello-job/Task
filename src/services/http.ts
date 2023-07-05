@@ -15,9 +15,11 @@ axios.defaults.baseURL =
 axios.interceptors.request.use(
   config => {
     const token = Storage.local.get('token');
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      window.location.href = '/login';
+      message.error('登陆失效请重新登陆');
     }
 
     return config;

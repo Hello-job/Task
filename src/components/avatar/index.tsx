@@ -7,7 +7,7 @@ import type { personalInfoType } from '@/stores/userInfo';
 import cls from 'classnames';
 
 interface AvatarType {
-  personalInfo?: personalInfoType;
+  personalInfo: personalInfoType;
   className?: string;
   style?: CSSProperties;
 }
@@ -20,13 +20,13 @@ const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
         'w-full h-full flex items-center justify-center text-sm overflow-hidden rounded-full shadow-md',
         className
       )}>
-      {!personalInfo?.avatar ? (
+      {personalInfo?.avatar ? (
         <img
           className="w-full h-full object-cover"
           src={personalInfo?.avatar}
         />
       ) : (
-        <span className=" break-normal">
+        <span className="break-normal">
           {personalInfo?.user_name?.slice(1)}
         </span>
       )}

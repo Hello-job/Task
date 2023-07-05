@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContext, ActionType } from './context';
 import { Storage } from '@/shared';
 
-const loginForm = () => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -79,4 +79,4 @@ const loginForm = () => {
   );
 };
 
-export default loginForm;
+export default LoginForm;

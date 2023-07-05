@@ -26,6 +26,8 @@ interface ColumnType {
 interface applicationType {
   dataSource: dataSourceType;
   columns: ColumnType[];
+  projectInfo: any;
+  projectList: any[];
 }
 
 export type {
