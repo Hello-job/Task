@@ -3,10 +3,10 @@ import { colors } from '@/components/select-color';
 
 interface AvatarColorProps {
   activeColor: string;
-  setActiveColor: (params: string) => void;
+  onChange: (params: string) => void;
 }
 
-const AvatarColor = ({ activeColor, setActiveColor }: AvatarColorProps) => {
+const AvatarColor = ({ activeColor, onChange }: AvatarColorProps) => {
   return (
     <div className="w-full h-[236px] pt-[30px]">
       <div className="w-full flex flex-wrap">
@@ -15,7 +15,7 @@ const AvatarColor = ({ activeColor, setActiveColor }: AvatarColorProps) => {
             <div
               key={color}
               onClick={() => {
-                setActiveColor(color);
+                onChange(color);
               }}
               style={{ backgroundColor: color }}
               className={cls('w-10 h-10 rounded-full mb-5 mr-5', {

@@ -18,8 +18,7 @@ axios.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
-      window.location.href = '/login';
-      message.error('登陆失效请重新登陆');
+      // window.location.href = '/login';
     }
 
     return config;

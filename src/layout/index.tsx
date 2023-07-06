@@ -45,10 +45,7 @@ const Layout = () => {
       <FloatingBall className={'w-12 h-12 overflow-hidden '}>
         <div
           className="w-12 h-12 rounded-full  shadow-md cursor-pointer object-cover m-0"
-          draggable="false"
-          onClick={() => {
-            console.log('>>>999');
-          }}>
+          draggable="false">
           <img
             draggable="false"
             className="w-full h-full"

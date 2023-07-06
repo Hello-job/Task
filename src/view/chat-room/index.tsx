@@ -90,7 +90,7 @@ const CharRoom = () => {
                 <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                   <Avatar personalInfo={item} />
                 </div>
-                <span className="ml-2">{item.user_name}</span>
+                <span className="ml-2">{item.name}</span>
               </div>
             );
           })}
@@ -99,7 +99,7 @@ const CharRoom = () => {
           <div className="flex-1 h-[calc(100%-100px)] flex flex-col">
             {currentChat && (
               <div className="h-[35px] text-center py-2 bg-skin-text-primary text-skin-text-white">
-                {currentChat?.user_name}
+                {currentChat?.name}
               </div>
             )}
             <div className="flex-1 overflow-hidden bg-[#f5f5f5]">

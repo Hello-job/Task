@@ -13,9 +13,10 @@ interface AvatarType {
 }
 
 const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
+  const color = personalInfo.color;
   return (
     <div
-      style={style}
+      style={color ? { backgroundColor: color, ...style } : style}
       className={cls(
         'w-full h-full flex items-center justify-center text-sm overflow-hidden rounded-full shadow-md',
         className
@@ -26,9 +27,7 @@ const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
           src={personalInfo?.avatar}
         />
       ) : (
-        <span className="break-normal">
-          {personalInfo?.user_name?.slice(1)}
-        </span>
+        <span className="break-normal">{personalInfo?.name?.slice(1)}</span>
       )}
     </div>
   );

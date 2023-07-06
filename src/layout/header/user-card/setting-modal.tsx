@@ -23,7 +23,8 @@ const SettingModal: React.FC<SettingModalProps> = ({
 }: SettingModalProps) => {
   const dispatch = useDispatch<Dispatch>();
 
-  const [activeColor, setActiveColor] = useState('');
+  const [activeColor, setActiveColor] = useState(personalInfo.color);
+  const [avatar, setAvatar] = useState(personalInfo.avatar);
 
   const handleChange = async (info: UploadChangeParam<UploadFile>) => {
     const { fileList } = info;
@@ -34,9 +35,8 @@ const SettingModal: React.FC<SettingModalProps> = ({
       file: fileList[0].originFileObj
     })) as any;
     if (code === 0 && url) {
-      await dispatch.userInfo.update({
-        avatar: url
-      });
+      setAvatar(url);
+      setActiveColor('');
     }
   };
 
@@ -48,7 +48,10 @@ const SettingModal: React.FC<SettingModalProps> = ({
         children: (
           <AvatarColor
             activeColor={activeColor}
-            setActiveColor={setActiveColor}
+            onChange={color => {
+              setActiveColor(color);
+              setAvatar('');
+            }}
           />
         )
       },
@@ -58,13 +61,17 @@ const SettingModal: React.FC<SettingModalProps> = ({
         children: <AvatarImg onChange={handleChange} />
       }
     ];
-  }, []);
+  }, [activeColor]);
 
   return (
     <Modal
       title="上传图像"
       open={open}
       onOk={() => {
+        dispatch.userInfo.updateUserInfo({
+          avatar,
+          color: activeColor
+        });
         setOpen(false);
       }}
       onCancel={() => {
@@ -74,12 +81,16 @@ const SettingModal: React.FC<SettingModalProps> = ({
         <div className="w-[210px] flex flex-col">
           <div className="h-[46px] leading-[46px]">预览</div>
           <div className="w-full flex justify-center items-center">
-            <div className="w-24 h-24 mt-[70px] mb-[20px] relative overflow-hidden group">
-              <Avatar
-                personalInfo={personalInfo}
-                className="bg-amber-200 text-white text-[30px] font-bold"
-                style={{ backgroundColor: activeColor }}
-              />
+            <div className="w-24 h-24 mt-[70px] mb-[20px] relative overflow-hidden group rounded-full">
+              {activeColor ? (
+                <div
+                  style={{ backgroundColor: activeColor }}
+                  className="w-full h-full flex items-center justify-center text-white text-[20px] font-bold">
+                  <span>{personalInfo.name}</span>
+                </div>
+              ) : (
+                <img className="w-full h-full object-cover" src={avatar} />
+              )}
             </div>
           </div>
         </div>

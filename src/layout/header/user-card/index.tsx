@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Input } from 'antd';
 import { Icon, Avatar } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import SettingModal from './setting-modal';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from '@/stores';
 
 interface UserDetailInfoType {
   personalInfo: any;
@@ -16,12 +19,17 @@ function UserCard({
   personalInfo
 }: UserDetailInfoType) {
   const navigate = useNavigate();
+  const dispatch = useDispatch<Dispatch>();
   const [open, setOpen] = useState(false);
+  const [editNameOpen, setEditNameOpen] = useState(false);
 
-  const handleMOuseDown = (e: MouseEvent) => {
-    if (open) return;
-    setOpenUserPopover(userPopRef?.current?.contains(e.target));
-  };
+  const handleMOuseDown = useCallback(
+    (e: MouseEvent) => {
+      if (open) return;
+      setOpenUserPopover(userPopRef?.current?.contains(e.target));
+    },
+    [open, userPopRef, setOpenUserPopover]
+  );
 
   useEffect(() => {
     if (!userPopRef) return;
@@ -30,7 +38,7 @@ function UserCard({
     return () => {
       window.removeEventListener('mousedown', handleMOuseDown);
     };
-  }, [open]);
+  }, [open, handleMOuseDown, userPopRef]);
 
   const handleExitLogin = () => {
     Storage.local.clear();
@@ -59,21 +67,48 @@ function UserCard({
         </div>
         <div>
           <div className=" text-lg text-skin-text-white mb-1">
-            <span className="mr-2">用户名</span>
-            <Icon type="icondetails_edit" />
+            {editNameOpen ? (
+              <Input
+                defaultValue={personalInfo.name}
+                autoFocus
+                onBlur={e => {
+                  dispatch.userInfo.updateUserInfo({
+                    name: e.target.value
+                  });
+                  setEditNameOpen(false);
+                }}
+              />
+            ) : (
+              <>
+                <span className="mr-2">{personalInfo.name}</span>
+                <Icon
+                  type="icondetails_edit"
+                  onClick={() => setEditNameOpen(true)}
+                />
+              </>
+            )}
           </div>
-          <div className="text-sm text-skin-text-white text-left">个性签名</div>
+          <div className="text-sm text-skin-text-white text-left">
+            备注:
+            {personalInfo.desc || <span className="ml-2">暂无</span>}
+          </div>
         </div>
       </div>
       <div className="bg-skin-bg-base pt-4 px-6 pb-8">
-        <h4>个人信息</h4>
+        <h4 className=" text-textGray text-left">个人信息</h4>
         <div className="flex items-center mt-4 text-sm">
-          <span className="text-textGray w-[72px]">手机号</span>
-          <span className=" text-skin-text-base">13636076741</span>
+          <span className="text-textGray w-[72px] text-left mr-2">手机号</span>
+          <span className=" text-skin-text-base">
+            {personalInfo.phone || <span className="text-violet">暂无</span>}
+          </span>
         </div>
-        <div className="flex items-center mt-4  text-sm">
-          <span className="text-textGray w-[72px]">项目信息</span>
-          <span className=" text-skin-text-base">测试项目</span>
+        <div className="flex items-center mt-4 text-sm">
+          <span className="text-textGray w-[72px] text-left mr-2">
+            电子邮箱
+          </span>
+          <span className=" text-skin-text-base">
+            {personalInfo.email || <span className="text-violet">暂无</span>}
+          </span>
         </div>
       </div>
       <div className=" bg-skin-bg-base py-4 px-2 flex items-center justify-around text-textGray">

@@ -29,7 +29,7 @@ const ResisterForm = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}>
           <Form.Item
-            name="user_name"
+            name="name"
             rules={[{ required: true, message: '请输入账号' }]}>
             <Input
               prefix={

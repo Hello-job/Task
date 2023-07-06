@@ -1,16 +1,16 @@
 import { useState, useRef } from 'react';
 import { Avatar } from '@/components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UserCard from './user-card';
 
-import type { RootState } from '@/stores';
+import type { RootState, Dispatch } from '@/stores';
 
 const UserInfo = () => {
+  const dispatch = useDispatch<Dispatch>();
   const personalInfo: any = useSelector<RootState>(
     model => model.userInfo.personalInfo
   );
   const userPopRef = useRef(null);
-
   const [openUserPopover, setOpenUserPopover] = useState<boolean>(false);
 
   return (

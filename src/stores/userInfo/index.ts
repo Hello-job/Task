@@ -7,7 +7,8 @@ import { Storage } from '@/shared';
 interface personalInfoType {
   id: number;
   avatar: string;
-  user_name: string;
+  name: string;
+  color?: string;
   sessionId?: string;
 }
 
@@ -19,7 +20,7 @@ interface userInfoType {
 const defaultPersonalInfo: personalInfoType = {
   id: 0,
   avatar: '',
-  user_name: ''
+  name: ''
 };
 
 export type { personalInfoType };
@@ -66,6 +67,10 @@ export const userInfo = createModel<RootModel>()({
         dispatch.userInfo.setUserInfo(newPersonalInfo);
       }
       return res;
+    },
+    async updateUserInfo(payload: any) {
+      const res = (await $http.post(updateUserInfo, payload)) as any;
+      dispatch.userInfo.setUserInfo(res.result);
     },
     async getUserAll() {
       try {
