@@ -3,10 +3,8 @@ import { Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { register } from '@/services/api';
 import Http from '@/services/http';
-import { useNavigate } from 'react-router-dom';
 import { LoginContext, ActionType } from './context';
 const ResisterForm = () => {
-  const navigate = useNavigate();
   const [form] = Form.useForm();
   const {
     state: { title },
@@ -29,7 +27,7 @@ const ResisterForm = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}>
           <Form.Item
-            name="name"
+            name="account"
             rules={[{ required: true, message: '请输入账号' }]}>
             <Input
               prefix={

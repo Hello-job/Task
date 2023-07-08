@@ -1,25 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { Input } from 'antd';
 import { Icon, Avatar } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import SettingModal from './setting-modal';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@/stores';
+import { parInfoContext } from '../user-info/context';
+import TextInfo from './text-info';
 
 interface UserDetailInfoType {
-  personalInfo: any;
   userPopRef: any;
   setOpenUserPopover: (value: boolean) => void;
 }
 
-function UserCard({
-  setOpenUserPopover,
-  userPopRef,
-  personalInfo
-}: UserDetailInfoType) {
+function UserCard({ setOpenUserPopover, userPopRef }: UserDetailInfoType) {
   const navigate = useNavigate();
-  const dispatch = useDispatch<Dispatch>();
+  const { personalInfo, onChange } = useContext(parInfoContext);
   const [open, setOpen] = useState(false);
   const [editNameOpen, setEditNameOpen] = useState(false);
 
@@ -67,30 +62,23 @@ function UserCard({
         </div>
         <div>
           <div className=" text-lg text-skin-text-white mb-1">
-            {editNameOpen ? (
-              <Input
-                defaultValue={personalInfo.name}
-                autoFocus
-                onBlur={e => {
-                  dispatch.userInfo.updateUserInfo({
-                    name: e.target.value
-                  });
-                  setEditNameOpen(false);
-                }}
-              />
-            ) : (
-              <>
-                <span className="mr-2">{personalInfo.name}</span>
-                <Icon
-                  type="icondetails_edit"
-                  onClick={() => setEditNameOpen(true)}
-                />
-              </>
-            )}
+            <TextInfo
+              style={{ color: 'white' }}
+              text={personalInfo.name}
+              fieldKey="name"
+              className="text-white"
+              onChange={onChange}
+            />
           </div>
-          <div className="text-sm text-skin-text-white text-left">
-            备注:
-            {personalInfo.desc || <span className="ml-2">暂无</span>}
+          <div className="text-sm text-skin-text-white text-left flex">
+            <span className="mr-2 font-normal">签名:</span>
+            <TextInfo
+              style={{ color: 'white' }}
+              text={personalInfo.desc}
+              fieldKey="desc"
+              className="text-white flex-1"
+              onChange={onChange}
+            />
           </div>
         </div>
       </div>
@@ -99,7 +87,11 @@ function UserCard({
         <div className="flex items-center mt-4 text-sm">
           <span className="text-textGray w-[72px] text-left mr-2">手机号</span>
           <span className=" text-skin-text-base">
-            {personalInfo.phone || <span className="text-violet">暂无</span>}
+            <TextInfo
+              text={personalInfo.phone}
+              fieldKey="phone"
+              onChange={onChange}
+            />
           </span>
         </div>
         <div className="flex items-center mt-4 text-sm">
@@ -107,7 +99,11 @@ function UserCard({
             电子邮箱
           </span>
           <span className=" text-skin-text-base">
-            {personalInfo.email || <span className="text-violet">暂无</span>}
+            <TextInfo
+              text={personalInfo.email}
+              fieldKey="email"
+              onChange={onChange}
+            />
           </span>
         </div>
       </div>
@@ -121,7 +117,7 @@ function UserCard({
           退出登陆
         </div>
       </div>
-      <SettingModal open={open} setOpen={setOpen} personalInfo={personalInfo} />
+      <SettingModal open={open} setOpen={setOpen} />
     </div>
   );
 }

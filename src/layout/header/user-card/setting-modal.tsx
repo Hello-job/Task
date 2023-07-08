@@ -1,42 +1,36 @@
-import React, { useState, useMemo } from 'react';
-import { Avatar } from '@/components';
+import React, { useState, useMemo, useContext } from 'react';
 import { Modal } from 'surprisec-react-components';
 import { Tabs } from 'antd';
 import AvatarColor from './avatar-color';
 import AvatarImg from './avatar-img';
 import type { UploadFile } from 'antd/es/upload/interface';
 import type { UploadChangeParam } from 'antd/es/upload';
-
-import { useDispatch } from 'react-redux';
-import type { Dispatch } from '@/stores';
+import { parInfoContext } from '../user-info/context';
 
 interface SettingModalProps {
   open: boolean;
   setOpen: (params: boolean) => void;
-  personalInfo: any;
 }
 
 const SettingModal: React.FC<SettingModalProps> = ({
   open,
-  setOpen,
-  personalInfo
+  setOpen
 }: SettingModalProps) => {
-  const dispatch = useDispatch<Dispatch>();
-
+  const { personalInfo, onChange, onUpdateField } = useContext(parInfoContext);
   const [activeColor, setActiveColor] = useState(personalInfo.color);
   const [avatar, setAvatar] = useState(personalInfo.avatar);
 
   const handleChange = async (info: UploadChangeParam<UploadFile>) => {
     const { fileList } = info;
-    const {
-      result: { url },
-      code
-    } = (await dispatch.uploadFile.uploadFile({
-      file: fileList[0].originFileObj
-    })) as any;
-    if (code === 0 && url) {
-      setAvatar(url);
-      setActiveColor('');
+    if (onUpdateField) {
+      const {
+        result: { url },
+        code
+      } = await onUpdateField(fileList[0]);
+      if (code === 0 && url) {
+        setAvatar(url);
+        setActiveColor('');
+      }
     }
   };
 
@@ -68,10 +62,11 @@ const SettingModal: React.FC<SettingModalProps> = ({
       title="上传图像"
       open={open}
       onOk={() => {
-        dispatch.userInfo.updateUserInfo({
-          avatar,
-          color: activeColor
-        });
+        onChange &&
+          onChange({
+            avatar,
+            color: activeColor
+          });
         setOpen(false);
       }}
       onCancel={() => {

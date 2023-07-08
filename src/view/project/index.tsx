@@ -21,14 +21,12 @@ const Project = () => {
     (store: RootState) => store.project.projectList
   );
 
-  console.log('>>>>>>projectList', projectList);
-
   useEffect(() => {
+    if (!personalInfo.id) return;
     dispatch.project.getProjectList({ userId: personalInfo.id });
   }, [personalInfo.id]);
 
   const onFinish = (values: any) => {
-    const { name, desc } = values;
     dispatch.project.createProject({
       ...values,
       creator: personalInfo.id
