@@ -1,5 +1,6 @@
 export * from './user';
 export * from './project';
+export * from './columns';
 /**
  * 文件上传接口
  */

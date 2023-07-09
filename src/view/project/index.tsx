@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Input } from 'antd';
 import { Icon, Avatar } from '@/components';
@@ -21,16 +21,25 @@ const Project = () => {
     (store: RootState) => store.project.projectList
   );
 
-  useEffect(() => {
+  const getProjectList = useCallback(() => {
     if (!personalInfo.id) return;
     dispatch.project.getProjectList({ userId: personalInfo.id });
-  }, [personalInfo.id]);
+  }, [personalInfo, dispatch.project]);
+
+  useEffect(() => {
+    getProjectList();
+  }, [getProjectList]);
 
   const onFinish = (values: any) => {
     dispatch.project.createProject({
       ...values,
       creator: personalInfo.id
     });
+    form.setFieldsValue({
+      name: '',
+      desc: ''
+    });
+    getProjectList();
     setOpen(false);
   };
 

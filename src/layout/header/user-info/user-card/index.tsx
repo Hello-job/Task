@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState, useContext } from 'react';
-import { Input } from 'antd';
-import { Icon, Avatar } from '@/components';
+import { Avatar } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { Storage } from '@/shared';
 import SettingModal from './setting-modal';
-import { parInfoContext } from '../user-info/context';
+import { parInfoContext } from '../context';
 import TextInfo from './text-info';
 
 interface UserDetailInfoType {
@@ -16,7 +15,6 @@ function UserCard({ setOpenUserPopover, userPopRef }: UserDetailInfoType) {
   const navigate = useNavigate();
   const { personalInfo, onChange } = useContext(parInfoContext);
   const [open, setOpen] = useState(false);
-  const [editNameOpen, setEditNameOpen] = useState(false);
 
   const handleMOuseDown = useCallback(
     (e: MouseEvent) => {

@@ -17,7 +17,7 @@ interface fieldType {
 }
 interface ColumnType {
   name: string;
-  label: string;
+  title: string;
   field: fieldType;
   index: number;
   width?: number;

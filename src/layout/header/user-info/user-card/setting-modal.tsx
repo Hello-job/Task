@@ -5,7 +5,7 @@ import AvatarColor from './avatar-color';
 import AvatarImg from './avatar-img';
 import type { UploadFile } from 'antd/es/upload/interface';
 import type { UploadChangeParam } from 'antd/es/upload';
-import { parInfoContext } from '../user-info/context';
+import { parInfoContext } from '../context';
 
 interface SettingModalProps {
   open: boolean;

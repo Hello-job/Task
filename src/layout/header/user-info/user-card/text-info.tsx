@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import { Input } from 'antd';
 import { Icon } from '@/components';
 import cls from 'classnames';
-import type { IStore } from '../user-info/context';
+import type { IStore } from '../context';
 
 interface TextInfoType {
   onChange?: IStore['onChange'];

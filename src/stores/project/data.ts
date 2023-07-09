@@ -1,7 +1,7 @@
 export const defaultColumns = [
   {
     name: 'title',
-    label: '标题',
+    title: '标题',
     index: 0,
     field: {
       type: 'textarea'
@@ -10,7 +10,7 @@ export const defaultColumns = [
   },
   {
     name: 'recordStatus',
-    label: '记录状态',
+    title: '记录状态',
     index: 1,
     field: {
       type: 'select',
@@ -41,17 +41,8 @@ export const defaultColumns = [
   },
   {
     name: 'text',
-    label: '多行文本',
+    title: '多行文本',
     index: 2,
-    field: {
-      type: 'textarea'
-    },
-    width: 300
-  },
-  {
-    name: 'text2',
-    label: '多行文本',
-    index: 3,
     field: {
       type: 'textarea'
     },

@@ -45,7 +45,7 @@ const ColumnOperation: React.FC<ColumnOperationType> = ({
     <div
       ref={columnOperationRef}
       className={cls(
-        'absolute top-[37px]',
+        'absolute top-[37px] z-[1000]',
         isViewRange ? 'left-0' : 'right-0'
       )}>
       {operOverlay}

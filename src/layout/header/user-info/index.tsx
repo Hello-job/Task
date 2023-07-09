@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { Avatar } from '@/components';
 import { useSelector, useDispatch } from 'react-redux';
-import UserCard from '../user-card';
+import UserCard from './user-card';
 import { PersonalInfoProvider } from './context';
 import type { UpdateValue } from './context';
 

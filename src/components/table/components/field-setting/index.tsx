@@ -88,7 +88,12 @@ const FieldSetting: React.FC<FieldSettingType> = ({
   }, [showFields]);
 
   const onFinish = (values: any) => {
-    console.log('>>>>>>value', values);
+    const params = {
+      type: currentField?.key,
+      ...values
+    };
+    console.log('>>>>>>value', params);
+
     handleColumnsAction;
   };
 
@@ -146,7 +151,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
       ref={settingFieldRef}>
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <>{showFields && settingFields}</>
-        <Form.Item label="列名" name="name" required>
+        <Form.Item label="列名" name="title" required>
           <Input placeholder="请输入列名" />
         </Form.Item>
         <Form.Item label="列类型">
@@ -164,7 +169,6 @@ const FieldSetting: React.FC<FieldSettingType> = ({
             <FieldConfigCom {...FieldConfigComProps} />
           </div>
         )}
-
         <div className="flex justify-end">
           <Button
             onClick={e => {

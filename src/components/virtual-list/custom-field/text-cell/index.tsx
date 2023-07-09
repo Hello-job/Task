@@ -9,7 +9,7 @@ interface TextAreaType {
 
 const TextArea = ({ column }: TextAreaType) => {
   const [edit, setEdit] = useState(false);
-  const [value, setValue] = useState(column.label);
+  const [value, setValue] = useState(column.title);
   const handleOnBlur = () => {
     setEdit(false);
   };
@@ -18,7 +18,7 @@ const TextArea = ({ column }: TextAreaType) => {
       <div>
         {edit ? (
           <Input
-            defaultValue={column.label}
+            defaultValue={column.title}
             value={value}
             onChange={e => setValue(e.target.value)}
             onBlur={handleOnBlur}

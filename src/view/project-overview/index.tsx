@@ -1,18 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import Table from '@/components/table';
 import type { ColumnType } from '@/stores/project/types';
 import type { rowItemType } from './data';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, Dispatch } from '@/stores';
+import type { operationColumnType } from './interface';
+import { useParams } from 'react-router-dom';
 
 interface onChangeRow {
   column: ColumnType;
   rowItem: rowItemType;
   value: any;
 }
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, Dispatch } from '@/stores';
-import type { operationColumnType } from './interface';
 
 const ProjectOverView = () => {
+  const { id } = useParams();
   const dispatch = useDispatch<Dispatch>();
   const columns = useSelector((state: RootState) => state.project.columns);
   const dataSource = useSelector(
@@ -20,6 +22,11 @@ const ProjectOverView = () => {
   );
 
   const [visibleList, setVisibleList] = useState(dataSource);
+
+  useEffect(() => {
+    if (!id) return;
+    dispatch.project.getColumns({ id: Number(id) });
+  }, [id]);
 
   const onRowChange = useCallback(
     ({ column, rowItem, value }: onChangeRow) => {

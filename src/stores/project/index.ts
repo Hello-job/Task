@@ -2,13 +2,17 @@ import { createModel } from '@rematch/core';
 import { RootModel } from '../models';
 import { defaultColumns, defaultDataSource } from './data';
 import $http from '@/services/http';
-import { createProjectApi, getProjectListApi } from '@/services/api';
-import type { applicationType } from './types';
+import {
+  createProjectApi,
+  getProjectListApi,
+  getColumnsApi
+} from '@/services/api';
+import type { applicationType, ColumnType } from './types';
 
 export const project = createModel<RootModel>()({
   state: {
     dataSource: defaultDataSource,
-    columns: defaultColumns,
+    columns: [],
     projectInfo: {},
     projectList: []
   } as applicationType,
@@ -22,7 +26,7 @@ export const project = createModel<RootModel>()({
     setColumns(state, payload) {
       return {
         ...state,
-        dataSource: payload
+        columns: payload
       };
     },
     setProjectInfo(state, payload) {
@@ -48,6 +52,19 @@ export const project = createModel<RootModel>()({
     async getProjectList(params: any) {
       const res: any = await $http.get(getProjectListApi, params);
       dispatch.project.setProjectList(res.result);
+    },
+    async getColumns(params: any) {
+      const res: any = await $http.post(getColumnsApi, params);
+      if (res.code === 0) {
+        const columns = res.result.columns.map(
+          (item: ColumnType, index: number) => {
+            item.index = index;
+            item.width = 200;
+            return item;
+          }
+        );
+        dispatch.project.setColumns(columns);
+      }
     }
   })
 });

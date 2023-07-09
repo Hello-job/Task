@@ -27,7 +27,9 @@ const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
           src={personalInfo?.avatar}
         />
       ) : (
-        <span className="break-normal">{personalInfo?.name?.slice(0, 2)}</span>
+        <span className="break-normal text-white">
+          {personalInfo?.name?.slice(0, 2)}
+        </span>
       )}
     </div>
   );

@@ -10,12 +10,12 @@ import type {
 import { TableContentContext } from './context';
 
 const FixLeftCell = ({
-  column,
+  column = {},
   rowItem,
   onChange,
   onChangeRowState
 }: {
-  column: ColumnType;
+  column: ColumnType | any;
   rowItem: rowDataType;
   onChange: (params: any) => void;
   onChangeRowState: (type: ChangeType, row: rowDataType) => void;
@@ -23,7 +23,7 @@ const FixLeftCell = ({
   const { onRightCellClick } = useContext(TableContentContext);
 
   const { width, name } = column;
-  const defaultValue = rowItem[column.name];
+  const defaultValue = rowItem[name];
   const [currentValue, setCurrentValue] = useState(defaultValue);
   const { type } = rowItem;
 

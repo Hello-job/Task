@@ -12,7 +12,7 @@ const SingleSelect = ({ column }: SingleSelectType) => {
   return (
     <Cell>
       <Popover trigger="click" placement="bottom" content={content()}>
-        <span>{column.label}</span>
+        <span>{column.title}</span>
       </Popover>
     </Cell>
   );

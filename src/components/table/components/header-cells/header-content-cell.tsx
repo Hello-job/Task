@@ -7,8 +7,10 @@ interface HeaderContentCellType {
 }
 
 const HeaderContentCell = ({ columns }: HeaderContentCellType) => {
-  const [beginColumn, ...otherColumn] = columns;
-  const { width } = beginColumn;
+  console.log('>>>>>>>>columns', columns);
+
+  const [beginColumn = {}, ...otherColumn] = columns;
+  const { width = 200 } = beginColumn;
 
   const sortHeaderCellRef = useRef(null);
 
@@ -30,7 +32,7 @@ const HeaderContentCell = ({ columns }: HeaderContentCellType) => {
       <div
         className="border flex-shrink-0 border-solid border-baseGray h-full flex items-center text-center text-textGray px-2  sticky left-0  z-50 bg-white"
         style={{ width }}>
-        {beginColumn.label}
+        {beginColumn.title}
       </div>
       <ul ref={sortHeaderCellRef} className="flex h-full">
         {otherColumn.map((item: any) => {
