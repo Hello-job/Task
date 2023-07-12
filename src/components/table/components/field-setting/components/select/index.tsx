@@ -86,7 +86,7 @@ const Select: React.FC<Props> = ({ form }: Props) => {
 
   return (
     <>
-      <Form.List name="options">
+      <Form.List name={['props', 'options']}>
         {(fields, { add, remove }) => (
           <div ref={sortHeaderCellRef} className="max-h-40 overflow-auto my-2">
             {fields.map(({ key, name, ...restField }, index) => {

@@ -44,7 +44,7 @@ function UserCard({ setOpenUserPopover, userPopRef }: UserDetailInfoType) {
       onClick={e => {
         e.stopPropagation();
       }}>
-      <div className="h-[128px] bg-skin-text-primary px-8 py-6 flex items-center">
+      <div className="h-[128px] bg-skin-text-primary px-8 py-6 flex">
         <div className="w-12 h-12   rounded-full overflow-hidden mr-5 ">
           <div className="w-12 h-12 relative overflow-hidden group">
             <Avatar
@@ -58,8 +58,8 @@ function UserCard({ setOpenUserPopover, userPopRef }: UserDetailInfoType) {
               }}></div>
           </div>
         </div>
-        <div>
-          <div className=" text-lg text-skin-text-white mb-1">
+        <div className="flex-1 text-left">
+          <div className="text-lg text-skin-text-white mb-1">
             <TextInfo
               style={{ color: 'white' }}
               text={personalInfo.name}
@@ -68,8 +68,8 @@ function UserCard({ setOpenUserPopover, userPopRef }: UserDetailInfoType) {
               onChange={onChange}
             />
           </div>
-          <div className="text-sm text-skin-text-white text-left flex">
-            <span className="mr-2 font-normal">签名:</span>
+          <div className="text-sm text-skin-text-white text-left flex items-center">
+            <div className="mr-2 font-normal flex-shrink-0">签名:</div>
             <TextInfo
               style={{ color: 'white' }}
               text={personalInfo.desc}

@@ -6,7 +6,6 @@ import cls from 'classnames';
 import type { Dispatch, RootState } from '@/stores';
 
 const CharRoom = () => {
-  //   const { messages, ws } = useWebSocketTest();
   const dispatch = useDispatch<Dispatch>();
   const personalInfo = useSelector(
     (store: RootState) => store.userInfo.personalInfo

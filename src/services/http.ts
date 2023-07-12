@@ -20,7 +20,6 @@ axios.interceptors.request.use(
     } else {
       // window.location.href = '/login';
     }
-
     return config;
   },
   error => {
@@ -41,7 +40,7 @@ axios.interceptors.response.use(
         data: { code, ...res }
       }
     } = error;
-    if (code === '10101') {
+    if (code === 401) {
       message.error(res.message);
       window.location.href = '/login';
     } else {

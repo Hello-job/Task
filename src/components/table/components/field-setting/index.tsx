@@ -169,6 +169,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
             <FieldConfigCom {...FieldConfigComProps} />
           </div>
         )}
+
         <div className="flex justify-end">
           <Button
             onClick={e => {
