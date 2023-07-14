@@ -4,13 +4,15 @@ import { Icon } from '@/components';
 import { fields } from './data';
 import cls from 'classnames';
 import { widgets } from './components';
+import { EnumAll } from '@/shared';
 import type { FieldType } from './data';
 import type { ColumnType } from '@/stores/project/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
+const { CustomField } = EnumAll;
 interface FieldSettingType {
   column?: ColumnType;
-
+  columns: ColumnType[];
   onClose: () => void;
   handleColumnsAction: (params: operationColumnType) => void;
 }
@@ -19,6 +21,7 @@ const settingFieldWidth = 336;
 const offsetWidth = 10;
 const FieldSetting: React.FC<FieldSettingType> = ({
   column,
+  columns,
   onClose,
   handleColumnsAction
 }: FieldSettingType) => {
@@ -36,7 +39,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
     if (!column) {
       setCurrentField(visibleFields[0]);
       form.setFieldsValue({
-        name: visibleFields[0].name
+        title: visibleFields[0].title
       });
     }
   }, []);
@@ -88,18 +91,42 @@ const FieldSetting: React.FC<FieldSettingType> = ({
   }, [showFields]);
 
   const onFinish = (values: any) => {
-    const params = {
-      type: currentField?.key,
-      ...values
-    };
-    console.log('>>>>>>value', params);
+    let params: any;
+    switch (currentField?.type) {
+      case CustomField.TEXTAREA:
+        params = {
+          name: `field_${+new Date()}`,
+          title: values.title,
+          field: {
+            type: currentField?.type,
+            ...values.props
+          }
+        };
+        break;
+      case CustomField.SINGLESELECT:
+        params = {
+          name: `field_${+new Date()}`,
+          title: values.title,
+          field: {
+            type: currentField?.type,
+            props: {
+              ...values.props
+            }
+          }
+        };
+        break;
+    }
 
-    handleColumnsAction;
+    handleColumnsAction({
+      type: 'add',
+      column: params
+    });
+    onClose();
   };
 
   const FieldConfigCom = useMemo(() => {
     if (currentField) {
-      const Widget = widgets[currentField?.key];
+      const Widget = widgets[currentField?.type];
       return Widget;
     }
   }, [currentField]);
@@ -109,6 +136,17 @@ const FieldSetting: React.FC<FieldSettingType> = ({
       form
     };
   }, [form]);
+
+  const handleAddField = (field: FieldType) => {
+    setCurrentField(field);
+    const currentFieldCount = columns.filter(
+      item => item.field.type === field.type
+    ).length;
+    form.setFieldsValue({
+      title: field.title + currentFieldCount
+    });
+    setShowFields(false);
+  };
 
   const settingFields = (
     <div
@@ -124,19 +162,13 @@ const FieldSetting: React.FC<FieldSettingType> = ({
                 className={cls(
                   'w-20 h-20 mb-4 mr-4 text-textGray flex flex-col items-center justify-center rounded-4px border border-solid border-[#f1f3f9] rounded-[4px]',
                   {
-                    'border-violet': field.key === currentField?.key,
-                    'text-violet': field.key === currentField?.key
+                    'border-violet': field.type === currentField?.type,
+                    'text-violet': field.type === currentField?.type
                   }
                 )}
-                onClick={() => {
-                  setCurrentField(field);
-                  form.setFieldsValue({
-                    name: field.name
-                  });
-                  setShowFields(false);
-                }}>
+                onClick={() => handleAddField(field)}>
                 <Icon type={field.icon} />
-                <span>{field.name}</span>
+                <span>{field.title}</span>
               </div>
             );
           })}
@@ -160,7 +192,7 @@ const FieldSetting: React.FC<FieldSettingType> = ({
             onClick={() => {
               setShowFields(!showFields);
             }}>
-            <span>{currentField?.name}</span>
+            <span>{currentField?.title}</span>
             <Icon type="iconxcx_open" rotate={showFields ? 180 : 0} />
           </div>
         </Form.Item>
@@ -185,7 +217,6 @@ const FieldSetting: React.FC<FieldSettingType> = ({
             onClick={e => {
               e.stopPropagation();
               e.preventDefault();
-              //   onClose();
               form.submit();
             }}>
             确定

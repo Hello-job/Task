@@ -29,12 +29,13 @@ const arraySort = (arr: any[], oldIndex: number, newIndex: number) => {
 const SelectColor = ({ value, onChange, form }: SelectItemProps) => {
   const options =
     form
-      ?.getFieldValue('options')
-      ?.map((item: SelectItemType) => item?.color)
+      ?.getFieldValue('props')
+      ?.options?.map((item: SelectItemType) => item?.color)
       ?.filter(Boolean) ?? [];
 
   return (
     <CustomSelectColor
+      getPopupContainer={() => document.getElementById('selectColorForm')}
       onChange={({ color }) => {
         onChange && onChange(color);
       }}
@@ -54,7 +55,10 @@ const SelectItem = ({ value, onChange, add }: SelectItemProps) => {
         onChange && onChange(e.target.value);
       }}
       onPressEnter={() => {
-        add && add();
+        add &&
+          add({
+            id: `${+new Date().getTime()}`.slice(4)
+          });
       }}
     />
   );
@@ -88,7 +92,10 @@ const Select: React.FC<Props> = ({ form }: Props) => {
     <>
       <Form.List name={['props', 'options']}>
         {(fields, { add, remove }) => (
-          <div ref={sortHeaderCellRef} className="max-h-40 overflow-auto my-2">
+          <div
+            ref={sortHeaderCellRef}
+            id="selectColorForm"
+            className="max-h-40 overflow-auto my-2">
             {fields.map(({ key, name, ...restField }, index) => {
               return (
                 <div
@@ -107,7 +114,7 @@ const Select: React.FC<Props> = ({ form }: Props) => {
                   <Form.Item
                     {...restField}
                     className="mb-0"
-                    name={[name, 'value']}>
+                    name={[name, 'name']}>
                     <SelectItem add={add} />
                   </Form.Item>
                   <Icon
@@ -120,7 +127,11 @@ const Select: React.FC<Props> = ({ form }: Props) => {
             })}
             <div
               className="text-sm text-violet flex items-center mt-2 ml-9"
-              onClick={() => add()}>
+              onClick={() =>
+                add({
+                  id: `${+new Date().getTime()}`.slice(4)
+                })
+              }>
               <Icon type="iconjia" />
               <span>新增选项</span>
             </div>

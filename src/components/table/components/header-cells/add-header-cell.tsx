@@ -1,7 +1,9 @@
 import { memo } from 'react';
 import type { ReactNode } from 'react';
+import type { ColumnType } from '@/stores/project/types';
 
 interface AddHeaderCellType {
+  columns: ColumnType[];
   operationColumn: string | null;
   setOperationColumn: (type: string) => void;
   addThRender: (params: any) => ReactNode;
@@ -10,6 +12,7 @@ interface AddHeaderCellType {
 }
 
 const AddHeaderCell = ({
+  columns,
   operationColumn,
   addThRender,
   setOperationColumn,
@@ -27,6 +30,7 @@ const AddHeaderCell = ({
       {operationColumn &&
         addThRender({
           type: 'add',
+          columns,
           onClose: onCloseFieldSetting,
           handleColumnsAction
         })}

@@ -44,8 +44,7 @@ const ProjectOverView = () => {
     ({ type, column }: operationColumnType) => {
       switch (type) {
         case 'add': {
-          const newColumns = columns.push(column);
-          dispatch.project.setColumns(newColumns);
+          dispatch.project.createColumn({ projectId: id, ...column });
           break;
         }
       }

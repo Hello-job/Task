@@ -5,7 +5,8 @@ import $http from '@/services/http';
 import {
   createProjectApi,
   getProjectListApi,
-  getColumnsApi
+  getColumnsApi,
+  createColumnApi
 } from '@/services/api';
 import type { applicationType, ColumnType } from './types';
 
@@ -64,6 +65,12 @@ export const project = createModel<RootModel>()({
           }
         );
         dispatch.project.setColumns(columns);
+      }
+    },
+    async createColumn(params: any) {
+      const res: any = await $http.post(createColumnApi, params);
+      if (res.code === 0) {
+        await dispatch.project.getColumns({ id: params.projectId });
       }
     }
   })

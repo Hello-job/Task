@@ -14,7 +14,7 @@ const SingleSelect = ({ column, rowItem, onChange }: IProps) => {
   const defaultValue = rowItem[column.name];
   const options = column.field?.props?.options ?? [];
   const selectItem = options.find(
-    (item: optionType) => item.value === defaultValue
+    (item: optionType) => item.id === defaultValue
   );
   const [open, setOpen] = useState(false);
 
@@ -42,13 +42,13 @@ const SingleSelect = ({ column, rowItem, onChange }: IProps) => {
                 onChange({
                   column,
                   rowItem,
-                  value: opt.value
+                  value: opt.id
                 });
                 setOpen(false);
               }}
-              key={opt.value}>
+              key={opt.id}>
               {showItem(opt)}
-              {opt.value === selectItem?.value && (
+              {opt.id === selectItem?.id && (
                 <Icon className=" text-violet" type="iconselected" />
               )}
             </div>

@@ -1,6 +1,6 @@
 type FieldType = {
-  key: string;
-  name: string;
+  type: string;
+  title: string;
   icon: string;
 };
 
@@ -10,13 +10,13 @@ type FieldsType = {
 
 const fields: FieldsType = {
   textarea: {
-    key: 'textarea',
-    name: '多行文本',
+    type: 'textarea',
+    title: '多行文本',
     icon: 'iconsingle_line_text'
   },
   select: {
-    key: 'select',
-    name: '单选',
+    type: 'select',
+    title: '单选',
     icon: 'iconsingle_choice'
   }
 };

@@ -2,28 +2,29 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import cls from 'classnames';
 import FieldSetting from '../field-setting';
 import type { operationColumnType } from '@/view/project-overview/interface';
+import type { ColumnType } from '@/stores/project/types';
 
 interface ColumnOperationType {
   type: string;
+  columns: ColumnType[];
   onClose: () => void;
   handleColumnsAction: (params: operationColumnType) => void;
 }
 
 const ColumnOperation: React.FC<ColumnOperationType> = ({
   type,
+  columns,
   onClose,
   handleColumnsAction
 }: ColumnOperationType) => {
   const columnOperationRef = useRef<HTMLDivElement>(null);
   const [isViewRange, setIsViewRange] = useState<boolean>(true);
-  const operationProps = {
-    onClose
-  };
 
   const operationWidget: Record<string, React.ReactNode> = {
     add: (
       <FieldSetting
         onClose={onClose}
+        columns={columns}
         handleColumnsAction={handleColumnsAction}
       />
     )

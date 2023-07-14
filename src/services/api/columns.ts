@@ -3,4 +3,9 @@
  */
 const getColumnsApi = '/columns';
 
-export { getColumnsApi };
+/**
+ * 创建表头
+ */
+const createColumnApi = '/createColumn';
+
+export { getColumnsApi, createColumnApi };

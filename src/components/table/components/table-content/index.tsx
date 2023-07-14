@@ -148,7 +148,8 @@ const TableContent = ({
           oldVisibleList.push({
             id: 99,
             title: '',
-            type: 'add'
+            type: 'add',
+            index: oldVisibleList.length
           });
           setVisibleList(oldVisibleList);
         }}>

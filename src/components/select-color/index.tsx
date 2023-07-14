@@ -7,6 +7,7 @@ interface SelectColorProps {
   options?: string[];
   onChange?: (params: any) => void;
   alreadyExists?: string[];
+  getPopupContainer?: () => HTMLElement | null;
 }
 
 interface ContentProps extends SelectColorProps {
@@ -38,7 +39,12 @@ const Content = ({ value, onChange, setOpen }: ContentProps) => {
   );
 };
 
-const SelectColor = ({ value, options, onChange }: SelectColorProps) => {
+const SelectColor = ({
+  value,
+  options,
+  onChange,
+  ...otherProps
+}: SelectColorProps) => {
   const [open, setOpen] = useState(false);
 
   const currentColor = useMemo(() => {
@@ -68,6 +74,7 @@ const SelectColor = ({ value, options, onChange }: SelectColorProps) => {
 
   return (
     <Popover
+      {...otherProps}
       open={open}
       placement="left"
       trigger={['click']}
