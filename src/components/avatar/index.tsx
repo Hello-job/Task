@@ -7,13 +7,13 @@ import type { personalInfoType } from '@/stores/userInfo';
 import cls from 'classnames';
 
 interface AvatarType {
-  personalInfo: personalInfoType;
+  personalInfo?: personalInfoType;
   className?: string;
   style?: CSSProperties;
 }
 
 const Avatar = ({ personalInfo, className, style = {} }: AvatarType) => {
-  const color = personalInfo.color;
+  const color = personalInfo?.color;
   return (
     <div
       style={color ? { backgroundColor: color, ...style } : style}

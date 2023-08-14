@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Input } from 'antd';
 import Cell from '../cell';
-import type { ColumnType } from '@/view/project-overview/interface';
+import type { ColumnType } from '@/stores/project/types';
 
 interface TextAreaType {
   column: ColumnType;

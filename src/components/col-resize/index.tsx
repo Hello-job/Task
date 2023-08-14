@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Styles from './index.module.less';
 import cls from 'classnames';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 
 interface ColResizeType {
   minWidth: number;

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { throttle } from 'lodash';
+import { throttle } from 'lodash-es';
 import cls from 'classnames';
 
 interface FloatingBallType {

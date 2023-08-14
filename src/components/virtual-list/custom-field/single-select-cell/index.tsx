@@ -1,6 +1,6 @@
 import { Popover } from 'antd';
 import Cell from '../cell';
-import type { ColumnType } from '@/view/project-overview/interface';
+import type { ColumnType } from '@/stores/project/types';
 interface SingleSelectType {
   column: ColumnType;
 }

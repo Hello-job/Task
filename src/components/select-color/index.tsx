@@ -7,7 +7,7 @@ interface SelectColorProps {
   options?: string[];
   onChange?: (params: any) => void;
   alreadyExists?: string[];
-  getPopupContainer?: () => HTMLElement | null;
+  getPopupContainer?: (triggerNode: HTMLElement) => any;
 }
 
 interface ContentProps extends SelectColorProps {
