@@ -37,9 +37,16 @@ axios.interceptors.response.use(
   error => {
     const {
       response: {
-        data: { code, ...res }
+        data: { code, ...res },
+        status
       }
     } = error;
+
+    if (status === 500) {
+      message.error('网络错误，请联系管理员');
+      return;
+    }
+
     if (code === 401) {
       message.error(res.message);
       window.location.href = '/login';
