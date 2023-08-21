@@ -19,7 +19,7 @@ export const uploadFile = createModel<RootModel>()({
       };
     }
   },
-  effects: dispatch => ({
+  effects: () => ({
     async uploadFile(payload: uploadFileType) {
       const res = await $http.upload(upload, payload);
       return res;

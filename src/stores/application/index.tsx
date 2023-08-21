@@ -16,7 +16,7 @@ export const application = createModel<RootModel>()({
       };
     }
   },
-  effects: dispatch => ({
+  effects: () => ({
     async getDataSource() {
       return [];
     }

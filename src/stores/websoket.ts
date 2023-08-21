@@ -62,11 +62,11 @@ export const soketService = createModel<RootModel>()({
         console.log('>>>>>>服务端关闭链接', msg);
       };
     },
-    async createChatId(payload, rootState) {
+    async createChatId(payload) {
       const res = (await $http.post(createSessionId, payload)) as any;
       return res.result;
     },
-    async getChatRecord(payload, rootState) {
+    async getChatRecord(payload) {
       const res = (await $http.post(getSessionRecord, payload)) as any;
       await dispatch.soketService.setChatMsgList(res.result.data);
     },

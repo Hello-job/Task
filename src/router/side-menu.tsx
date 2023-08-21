@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { useRoutes, Navigate } from 'react-router-dom';
 
 const Project = lazy(() => import('../view/project'));
 const ProjectOverView = lazy(() => import('../view/project-overview'));

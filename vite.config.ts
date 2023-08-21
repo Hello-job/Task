@@ -11,6 +11,7 @@ export default ({ mode }) => {
   return defineConfig({
     envDir: './env',
     build: {
+      minify: 'terser',
       rollupOptions: {
         manualChunks: {
           // 不经常更新的代码单独打包成一个 JS 文件，这样就可以减少 HTTP 请求，同时降低服务器压力

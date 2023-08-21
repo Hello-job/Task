@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '@/components';
 import cls from 'classnames';
 import type { Dispatch, RootState } from '@/stores';
+import type { personalInfoType } from '@/stores/userInfo';
 
 const CharRoom = () => {
   const dispatch = useDispatch<Dispatch>();
@@ -55,6 +56,21 @@ const CharRoom = () => {
     });
   };
 
+  const handleCurrentMemberChat = async (member: personalInfoType) => {
+    if (member.sessionId) {
+      const res = await dispatch.soketService.createChatId({
+        senderId: personalInfo.id,
+        receiverId: member.id
+      });
+      setCurrentSessionId(res.sessionId);
+    } else {
+      await dispatch.soketService.getChatRecord({
+        sessionId: currentSessionId
+      });
+    }
+    setCurrentChat(member);
+  };
+
   return (
     <div className="w-full h-full rounded-md bg-skin-bg-base p-2.5">
       <div className="w-full h-full flex ">
@@ -71,21 +87,7 @@ const CharRoom = () => {
                       item?.id === currentChat?.id
                   }
                 )}
-                onClick={async () => {
-                  if (item.sessionId) {
-                    const res = await dispatch.soketService.createChatId({
-                      senderId: personalInfo.id,
-                      receiverId: item.id
-                    });
-                    setCurrentSessionId(res.sessionId);
-                  } else {
-                    const res = await dispatch.soketService.getChatRecord({
-                      sessionId: currentSessionId
-                    });
-                    console.log('>>>>>res', res);
-                  }
-                  setCurrentChat(item);
-                }}>
+                onClick={() => handleCurrentMemberChat(item)}>
                 <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                   <Avatar personalInfo={item} />
                 </div>
@@ -94,7 +96,7 @@ const CharRoom = () => {
             );
           })}
         </div>
-        <div className="flex-1 h-full border border-solid border-textGray rounded-md flex flex-col">
+        <div className="flex-1 h-full rounded-md flex flex-col">
           <div className="flex-1 h-[calc(100%-100px)] flex flex-col">
             {currentChat && (
               <div className="h-[35px] text-center py-2 bg-skin-text-primary text-skin-text-white">
@@ -146,7 +148,7 @@ const CharRoom = () => {
             <div className="w-full flex h-full">
               <Input
                 autoSave="false"
-                className="h-full"
+                className="h-full rounded-none"
                 value={chatMsg}
                 onChange={e => setChatMsg(e.target.value)}
                 onPressEnter={handleMsgSend}
