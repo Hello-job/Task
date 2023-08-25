@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from 'react';
+import { memo, useMemo, useState, useCallback, useEffect } from 'react';
 import { formWidget } from '../config';
 import FixLeftCell from './fix-left-cell';
 import TdMenu from './td-menu';
@@ -142,7 +142,7 @@ const TableContent = ({
     return (
       <div
         style={{ width: rowWidth }}
-        className="border-t-0 border-b border-l border-r  border-solid border-baseGray flex items-center px-2 h-[37px] cursor-pointer"
+        className="border-t-0 border-b border-l border-r  border-solid border-baseGray flex items-center px-2 p-l[19px] h-[37px] cursor-pointer"
         onClick={() => {
           const oldVisibleList = [...visibleList];
           oldVisibleList.push({
@@ -226,4 +226,4 @@ const TableContent = ({
   );
 };
 
-export default TableContent;
+export default memo(TableContent);

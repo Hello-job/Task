@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useCallback } from 'react';
 import { Modal } from 'surprisec-react-components';
 import { Tabs } from 'antd';
 import AvatarColor from './avatar-color';
@@ -20,19 +20,22 @@ const SettingModal: React.FC<SettingModalProps> = ({
   const [activeColor, setActiveColor] = useState(personalInfo.color);
   const [avatar, setAvatar] = useState(personalInfo.avatar);
 
-  const handleChange = async (info: UploadChangeParam<UploadFile>) => {
-    const { fileList } = info;
-    if (onUpdateField) {
-      const {
-        result: { url },
-        code
-      } = await onUpdateField(fileList[0]);
-      if (code === 0 && url) {
-        setAvatar(url);
-        setActiveColor('');
+  const handleChange = useCallback(
+    async (info: UploadChangeParam<UploadFile>) => {
+      const { fileList } = info;
+      if (onUpdateField) {
+        const {
+          result: { url },
+          code
+        } = await onUpdateField(fileList[0]);
+        if (code === 0 && url) {
+          setAvatar(url);
+          setActiveColor('');
+        }
       }
-    }
-  };
+    },
+    [onUpdateField]
+  );
 
   const TabItems = useMemo(() => {
     return [
@@ -55,7 +58,7 @@ const SettingModal: React.FC<SettingModalProps> = ({
         children: <AvatarImg onChange={handleChange} />
       }
     ];
-  }, [activeColor]);
+  }, [activeColor, handleChange]);
 
   return (
     <Modal

@@ -12,7 +12,7 @@ const TdMenu = ({ menuPosition }: FixLeftCellRightMenuType) => {
     <>
       {
         <div
-          className="fixed rounded-md shadow-base bg-white py-2 px-1 text-sm text-textGray"
+          className="fixed z-[1000] rounded-md shadow-base bg-white py-2 px-1 text-sm text-textGray"
           style={{
             top: menuPosition.y,
             left: menuPosition.x

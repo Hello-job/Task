@@ -1,6 +1,6 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../models';
-import { defaultDataSource } from './data';
+import { defaultDataSource, defaultColumns } from './data';
 import $http from '@/services/http';
 import {
   createProjectApi,
@@ -13,7 +13,7 @@ import type { applicationType, ColumnType } from './types';
 export const project = createModel<RootModel>()({
   state: {
     dataSource: defaultDataSource,
-    columns: [],
+    columns: defaultColumns,
     projectInfo: {},
     projectList: []
   } as applicationType,

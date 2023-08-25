@@ -59,7 +59,7 @@ export default ({ mode }) => {
       https: false, // 不支持https
       proxy: {
         '/api': {
-          target: 'http://localhost:8000', // 实际请求地址
+          target: 'http://101.132.222.119:8000', // 实际请求地址
           changeOrigin: true, // 是否跨域
           rewrite: path => path.replace(/^\/api/, '') // 对什么类的服务器匹配
         }

@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
 import Table from '@/components/table';
+import KanbanView from '@/components/kanban';
 import type { ColumnType } from '@/stores/project/types';
 import type { rowItemType } from './data';
 import { useSelector, useDispatch } from 'react-redux';
@@ -59,6 +60,7 @@ const ProjectOverView = () => {
         ListData={listData}
         bufferScale={1}
         columns={columns}></VritualList> */}
+      <KanbanView />
       <Table
         columns={columns}
         visibleList={visibleList}
