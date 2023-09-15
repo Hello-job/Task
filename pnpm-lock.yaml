@@ -7,6 +7,9 @@ dependencies:
   '@rematch/core':
     specifier: ^2.2.0
     version: 2.2.0(redux@4.2.1)
+  '@types/emoji-mart':
+    specifier: ^3.0.9
+    version: 3.0.9
   '@types/sortablejs':
     specifier: ^1.15.1
     version: 1.15.1
@@ -25,6 +28,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.7
     version: 1.11.9
+  emoji-mart:
+    specifier: ^5.5.2
+    version: 5.5.2
   eslint-config-surprisec:
     specifier: 1.0.3
     version: 1.0.3(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(eslint-config-alloy@5.1.1)(eslint-config-prettier@8.8.0)(eslint-loader@4.0.2)(eslint-plugin-import@2.28.0)(eslint-plugin-prettier@4.2.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.44.0)(prettier@2.8.8)
@@ -1106,6 +1112,12 @@ packages:
     dependencies:
       classnames: 2.3.2
     dev: true
+
+  /@types/emoji-mart@3.0.9:
+    resolution: {integrity: sha512-qdBo/2Y8MXaJ/2spKjDZocuq79GpnOhkwMHnK2GnVFa8WYFgfA+ei6sil3aeWQPCreOKIx9ogPpR5+7MaOqYAA==}
+    dependencies:
+      '@types/react': 18.2.14
+    dev: false
 
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
@@ -2283,6 +2295,10 @@ packages:
 
   /electron-to-chromium@1.4.447:
     resolution: {integrity: sha512-sxX0LXh+uL41hSJsujAN86PjhrV/6c79XmpY0TvjZStV6VxIgarf8SRkUoUTuYmFcZQTemsoqo8qXOGw5npWfw==}
+
+  /emoji-mart@5.5.2:
+    resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
+    dev: false
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}

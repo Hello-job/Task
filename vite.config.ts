@@ -55,6 +55,7 @@ export default ({ mode }) => {
     },
     server: {
       // 默认打开的端口和本地
+      host: '0.0.0.0',
       port: 5173,
       https: false, // 不支持https
       proxy: {
