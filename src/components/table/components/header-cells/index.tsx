@@ -22,7 +22,10 @@ const HeaderCells = ({
 
   return (
     <div className="w-full flex items-center h-[37px] text-sm">
-      <HeaderContentCell columns={columns} />
+      <HeaderContentCell
+        columns={columns}
+        handleColumnsAction={handleColumnsAction}
+      />
       <AddHeaderCell
         columns={columns}
         operationColumn={operationColumn}

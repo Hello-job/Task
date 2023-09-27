@@ -42,11 +42,14 @@ const ProjectOverView = () => {
   );
 
   const handleColumnsAction = useCallback(
-    ({ type, column }: operationColumnType) => {
+    ({ type, column, newColumns }: operationColumnType) => {
       switch (type) {
         case 'add': {
           dispatch.project.createColumn({ projectId: id, ...column });
           break;
+        }
+        case 'sort': {
+          newColumns && dispatch.project.setColumns([...newColumns]);
         }
       }
     },

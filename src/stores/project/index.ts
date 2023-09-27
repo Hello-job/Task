@@ -25,6 +25,8 @@ export const project = createModel<RootModel>()({
       };
     },
     setColumns(state, payload) {
+      console.log('>>>>>怎么回事', payload);
+
       return {
         ...state,
         columns: payload

@@ -5,10 +5,11 @@ interface onChangeRow {
   value: any;
 }
 
-type actionColumnType = 'add' | 'edit' | 'delete';
+type actionColumnType = 'add' | 'edit' | 'delete' | 'sort';
 interface operationColumnType {
   type: actionColumnType;
-  column: ColumnType;
+  column?: ColumnType;
+  newColumns?: ColumnType[];
 }
 
 export type { onChangeRow, operationColumnType };
