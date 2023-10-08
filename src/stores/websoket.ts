@@ -41,7 +41,6 @@ export const soketService = createModel<RootModel>()({
       if (rootState.soketService.ws) return;
       const personalInfo = rootState.userInfo.personalInfo;
       const ws = new WebSocket(`ws://localhost:8080?userId=${personalInfo.id}`);
-      console.log('>>>>>', rootState.soketService.chatMsgList);
       ws.onopen = () => {
         dispatch.soketService.setConnection(true);
         dispatch.soketService.setWs(ws);
