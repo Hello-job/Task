@@ -36,7 +36,7 @@
     "react-sortablejs": "^6.1.4",
     "redux": "^4.2.1",
     "sortablejs": "^1.15.0",
-    "surprisec-react-components": "0.1.2",
+    "surprisec-react-components": "0.1.4",
     "vite-plugin-compression": "^0.5.1"
   },
   "lint-staged": {
