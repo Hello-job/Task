@@ -1,0 +1,17 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run a script
+    
+    - name: Send an email
+      uses: actions/email@v2
+      with:
+        to: 835498386@qq.com
+        subject: The script has been run
+        body: The script has completed successfully. 
