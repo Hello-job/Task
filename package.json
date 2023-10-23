@@ -37,7 +37,8 @@
     "redux": "^4.2.1",
     "sortablejs": "^1.15.0",
     "surprisec-react-components": "0.1.4",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "@toast-ui/calendar": "link:libs/tui-calendar/apps/calendar"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

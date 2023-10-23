@@ -1,0 +1,3 @@
+[submodule "libs/tui-calendar"]
+	path = libs/tui-calendar
+	url = https://github.com/Hello-job/tui.calendar.git
