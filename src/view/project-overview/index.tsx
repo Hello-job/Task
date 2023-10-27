@@ -5,6 +5,7 @@ import type { ColumnType } from '@/types';
 import type { rowItemType } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, Dispatch } from '@/stores';
+import { defaultColumns } from '@/stores/project/data';
 import type { operationColumnType } from './interface';
 import { useParams } from 'react-router-dom';
 
@@ -27,7 +28,7 @@ const ProjectOverView = () => {
   useEffect(() => {
     if (!id) return;
     dispatch.project.getColumns({ id: Number(id) });
-  }, [id]);
+  }, [id, dispatch.project]);
 
   const onRowChange = useCallback(
     ({ column, rowItem, value }: onChangeRow) => {
@@ -53,16 +54,11 @@ const ProjectOverView = () => {
         }
       }
     },
-    [columns]
+    [id, dispatch.project]
   );
 
   return (
     <div className="w-full h-full bg-skin-bg-base rounded-sm flex flex-col p-5">
-      {/* <VritualList
-        itemSize={40}
-        ListData={listData}
-        bufferScale={1}
-        columns={columns}></VritualList> */}
       <KanbanView />
       <Table
         columns={columns}

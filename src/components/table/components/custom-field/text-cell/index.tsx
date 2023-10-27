@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from 'antd';
 import type { IProps } from '../interface';
 import type { ChangeEvent } from 'react';
@@ -15,6 +15,7 @@ const TextArea = ({ column, rowItem, onChange }: IProps) => {
     });
     setEdit(false);
   };
+
   return (
     <>
       {edit ? (
@@ -27,6 +28,7 @@ const TextArea = ({ column, rowItem, onChange }: IProps) => {
             setCurrentValue(e.target.value);
           }}
           onBlur={handleOnBlur}
+          onPressEnter={handleOnBlur}
           autoFocus
         />
       ) : (

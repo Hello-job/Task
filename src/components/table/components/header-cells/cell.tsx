@@ -14,7 +14,6 @@ const Cell = ({ children, className, style, column }: CellProps) => {
   const { width = 200 } = column;
   const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
-    console.log('>>>>>>右击');
   };
   return (
     <div
@@ -22,7 +21,7 @@ const Cell = ({ children, className, style, column }: CellProps) => {
       style={{ width, ...style }}
       onContextMenu={onContextMenu}
       className={cls(
-        'border-solid border-l-0 border-t border-b border-r border-baseGray text-textGray h-full flex items-center px-2',
+        'border-solid border-l-0 border-t border-b border-r border-baseGray text-textGray h-full flex items-center px-2 cursor-move',
         className
       )}>
       {children}

@@ -9,6 +9,7 @@ interface AddRecordProps {
 interface Props {
   dataSource: RowDataType[];
   setVisibleList: (data: RowDataType[]) => void;
+  setMenuVisible: (value: boolean) => void;
 }
 
 interface ReturnProps {
@@ -19,7 +20,8 @@ interface ReturnProps {
 
 const useRowOperationFns = ({
   dataSource,
-  setVisibleList
+  setVisibleList,
+  setMenuVisible
 }: Props): ReturnProps => {
   /**
    * 添加记录
@@ -33,8 +35,9 @@ const useRowOperationFns = ({
         (row: RowDataType) => row.id === rowItem.id
       );
       if (~fIndex) {
-        const newDataList = dataSource.splice(callback(fIndex), 0, rowData);
-        setVisibleList([...newDataList]);
+        dataSource.splice(callback(fIndex), 0, rowData);
+        setVisibleList([...dataSource]);
+        setMenuVisible(false);
       }
     },
     [dataSource, setVisibleList]
@@ -47,7 +50,7 @@ const useRowOperationFns = ({
    */
   const addUpRecord = useCallback(
     (parmas: AddRecordProps) => {
-      handleAddRecord(parmas, (index: number) => index - 1);
+      handleAddRecord(parmas, (index: number) => index);
     },
     [handleAddRecord]
   );
@@ -59,7 +62,7 @@ const useRowOperationFns = ({
    */
   const addDownRecord = useCallback(
     (parmas: AddRecordProps) => {
-      handleAddRecord(parmas, (index: number) => index);
+      handleAddRecord(parmas, (index: number) => index + 1);
     },
     [handleAddRecord]
   );
@@ -74,8 +77,9 @@ const useRowOperationFns = ({
         (row: RowDataType) => row.id === rowItem.id
       );
       if (~fIndex) {
-        const newDataList = dataSource.splice(fIndex, 1);
-        setVisibleList([...newDataList]);
+        dataSource.splice(fIndex, 1);
+        setVisibleList([...dataSource]);
+        setMenuVisible(false);
       }
     },
     [dataSource, setVisibleList]

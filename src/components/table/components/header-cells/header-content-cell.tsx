@@ -1,8 +1,9 @@
-import { memo, useRef, useEffect, useCallback } from 'react';
+import { memo, useRef, useEffect, useCallback, useState } from 'react';
 import Sortable from 'sortablejs';
 import type { SortableEvent } from 'sortablejs';
 import type { ColumnType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
+import { move } from 'lodash';
 import Cell from './cell';
 
 interface HeaderContentCellType {
@@ -10,36 +11,37 @@ interface HeaderContentCellType {
   handleColumnsAction: (params: operationColumnType) => void;
 }
 
+// 从旧位置删除元素并插入到新位置
 const arrSort = (dataList: any[], oldIndex: number, newIndex: number) => {
   const list = dataList.slice();
-  const oldItem = list[oldIndex];
-  list.splice(oldIndex, 1);
-  list.splice(newIndex, 0, oldItem);
+  const elementToMove = list.splice(oldIndex, 1)[0];
+  list.splice(newIndex, 0, elementToMove);
   return list;
 };
-
 const HeaderContentCell = ({
   columns,
   handleColumnsAction
 }: HeaderContentCellType) => {
   const [beginColumn = {}, ...otherColumn] = columns;
-
+  const columnsRef = useRef(columns);
   const sortHeaderCellRef = useRef(null);
-  const onEnd = useCallback(
-    (event: SortableEvent) => {
-      const { newIndex, oldIndex } = event;
-      if (newIndex === void 0 || oldIndex === void 0) return;
-      const [, ...remainColumn] = columns;
-      const newColumns = arrSort(remainColumn, oldIndex, newIndex);
-      const data: any = [beginColumn, ...newColumns];
+  const onEnd = (event: SortableEvent) => {
+    const { newIndex, oldIndex } = event;
+    if (newIndex === void 0 || oldIndex === void 0) return;
+    const [, ...remainColumn] = columnsRef.current;
 
-      handleColumnsAction({
-        type: 'sort',
-        newColumns: data
-      });
-    },
-    [beginColumn, columns, handleColumnsAction]
-  );
+    const newColumns = arrSort(remainColumn, oldIndex, newIndex);
+    const data: any = [beginColumn, ...newColumns];
+
+    handleColumnsAction({
+      type: 'sort',
+      newColumns: data
+    });
+  };
+
+  useEffect(() => {
+    columnsRef.current = columns;
+  }, [columns]);
 
   useEffect(() => {
     const sortableList = sortHeaderCellRef.current;
@@ -51,7 +53,7 @@ const HeaderContentCell = ({
         onEnd
       });
     }
-  }, [sortHeaderCellRef, onEnd]);
+  }, []);
 
   return (
     <>

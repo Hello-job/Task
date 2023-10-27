@@ -61,25 +61,19 @@ const TableContent = ({
 
   const { addUpRecord, addDownRecord, deleteRecord } = useRowOperationFns({
     dataSource: visibleList,
-    setVisibleList
+    setVisibleList,
+    setMenuVisible
   });
 
-  const onListeners = useCallback(
-    (e: Event) => {
-      if (menuVisible) {
-        setMenuVisible(false);
-      }
+  const onListeners = useCallback(() => {
+    if (mouseCells.length) {
+      setMouseCells([]);
+    }
 
-      if (mouseCells.length) {
-        setMouseCells([]);
-      }
-
-      if (!mouseDown) {
-        setSelectedRange(initXYRange);
-      }
-    },
-    [mouseCells, menuVisible, mouseDown]
-  );
+    if (!mouseDown) {
+      setSelectedRange(initXYRange);
+    }
+  }, [mouseCells, mouseDown]);
 
   useEffect(() => {
     document.addEventListener('mousedown', onListeners);
@@ -130,7 +124,7 @@ const TableContent = ({
       });
       setVisibleList([...visibleList]);
     },
-    [visibleList]
+    [visibleList, setVisibleList]
   );
 
   /**
@@ -238,6 +232,7 @@ const TableContent = ({
             onAddUpRecord={addUpRecord}
             onAddDownRecord={addDownRecord}
             onDeleteRecord={deleteRecord}
+            onClose={() => setMenuVisible(false)}
           />
         )}
       </div>

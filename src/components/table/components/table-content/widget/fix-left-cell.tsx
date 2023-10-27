@@ -56,6 +56,7 @@ const FixLeftCell = ({
               setCurrentValue(e.target.value);
             }}
             onBlur={handleOnBlur}
+            onPointerEnter={handleOnBlur}
             autoFocus
           />
         ) : (
