@@ -2,7 +2,7 @@ import { memo } from 'react';
 import cls from 'classnames';
 import type { MouseEventHandler, CSSProperties } from 'react';
 
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 
 interface CellProps {
   children: React.ReactNode;

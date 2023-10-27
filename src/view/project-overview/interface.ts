@@ -1,7 +1,7 @@
-import type { rowDataType, ColumnType } from '@/stores/project/types';
+import type { RowDataType, ColumnType } from '@/types';
 interface onChangeRow {
   column: ColumnType;
-  rowItem: rowDataType;
+  rowItem: RowDataType;
   value: any;
 }
 

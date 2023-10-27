@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        violet: '#7b67ee', // 主题字颜色（紫色）
-        violet2: '#edeaff', // 选中色
+        'violet-500': '#7b67ee', // 主题字颜色（紫色）
+        'violet-200': '#edeaff', // 选中色
         grayCustom: '#f5f7fa', // hover灰色
         textGray: '#6e7080', // 字体灰色
         textLight: '#8c8c8c', // 字体浅灰色

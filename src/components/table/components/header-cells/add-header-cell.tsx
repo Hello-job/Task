@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import type { ReactNode } from 'react';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 
 interface AddHeaderCellType {
   columns: ColumnType[];

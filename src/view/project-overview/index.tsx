@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import Table from '@/components/table';
 import KanbanView from '@/components/kanban';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 import type { rowItemType } from './data';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, Dispatch } from '@/stores';

@@ -1,7 +1,7 @@
 import { ReactNode, memo, useCallback, useState } from 'react';
 import AddHeaderCell from './add-header-cell';
 import HeaderContentCell from './header-content-cell';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
 interface HeaderType {

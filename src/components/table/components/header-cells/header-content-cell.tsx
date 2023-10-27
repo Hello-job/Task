@@ -1,7 +1,7 @@
 import { memo, useRef, useEffect, useCallback } from 'react';
 import Sortable from 'sortablejs';
 import type { SortableEvent } from 'sortablejs';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 import Cell from './cell';
 

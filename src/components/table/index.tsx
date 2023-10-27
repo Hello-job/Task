@@ -2,12 +2,12 @@ import HeaderCells from './components/header-cells';
 import TableContent from './components/table-content';
 import useThRender from './hooks/useThRender';
 
-import type { ColumnType, rowDataType } from '@/stores/project/types';
+import type { ColumnType, RowDataType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
 export interface TableProps {
   columns: ColumnType[];
-  visibleList: rowDataType[];
+  visibleList: RowDataType[];
   onRowChange: any;
   setVisibleList: (params: any) => void;
   handleColumnsAction: (params: operationColumnType) => void;

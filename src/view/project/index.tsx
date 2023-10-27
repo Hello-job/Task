@@ -77,7 +77,7 @@ const Project = () => {
           onClick={() => {
             setOpen(true);
           }}>
-          <div className="w-full h-full bg-[#f1f3f9] flex justify-center items-center text-lg text-violet">
+          <div className="w-full h-full bg-[#f1f3f9] flex justify-center items-center text-lg text-violet-500">
             <Icon type="icona-automationadd" className="mr-5" />
             <span>新建项目</span>
           </div>

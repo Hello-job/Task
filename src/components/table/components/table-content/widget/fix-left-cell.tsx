@@ -1,13 +1,9 @@
 import { useState, memo, useContext } from 'react';
 import { Input } from 'antd';
-import Cell from '../custom-field/cell';
+import Cell from '../../custom-field/cell';
 import type { ChangeEvent } from 'react';
-import type {
-  rowDataType,
-  ColumnType,
-  ChangeType
-} from '@/stores/project/types';
-import { TableContentContext } from './context';
+import type { RowDataType, ColumnType, ChangeType } from '@/types';
+import { TableContentContext } from '../context';
 
 const FixLeftCell = ({
   column = {},
@@ -16,9 +12,9 @@ const FixLeftCell = ({
   onChangeRowState
 }: {
   column: ColumnType | any;
-  rowItem: rowDataType;
+  rowItem: RowDataType;
   onChange: (params: any) => void;
-  onChangeRowState: (type: ChangeType, row: rowDataType) => void;
+  onChangeRowState: (type: ChangeType, row: RowDataType) => void;
 }) => {
   const { onRightCellClick } = useContext(TableContentContext);
 

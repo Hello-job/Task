@@ -6,7 +6,7 @@ import cls from 'classnames';
 import { widgets } from './components';
 import { EnumAll } from '@/shared';
 import type { FieldType } from './data';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
 
 const { CustomField } = EnumAll;
@@ -162,8 +162,8 @@ const FieldSetting: React.FC<FieldSettingType> = ({
                 className={cls(
                   'w-20 h-20 mb-4 mr-4 text-textGray flex flex-col items-center justify-center rounded-4px border border-solid border-[#f1f3f9] rounded-[4px]',
                   {
-                    'border-violet': field.type === currentField?.type,
-                    'text-violet': field.type === currentField?.type
+                    'border-violet-500': field.type === currentField?.type,
+                    'text-violet-500': field.type === currentField?.type
                   }
                 )}
                 onClick={() => handleAddField(field)}>

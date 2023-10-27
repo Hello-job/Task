@@ -68,7 +68,7 @@ const LoginForm = () => {
       <div className="text-sm mt-2 text-skin-text-base">
         <span>没有账号?点击</span>
         <span
-          className="text-violet cursor-pointer"
+          className="text-violet-500 cursor-pointer"
           onClick={() => {
             dispatch({ type: ActionType.Register });
           }}>

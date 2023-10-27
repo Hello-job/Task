@@ -69,7 +69,7 @@ const SideMenu = ({
                 className={cls(
                   'rounded-md p-2 hover:bg-grayCustom text-sm flex items-center cursor-pointer',
                   {
-                    'bg-skin-text-primary2 text-violet hover:bg-skin-text-primary2':
+                    'bg-skin-text-primary2 text-violet-500 hover:bg-skin-text-primary2':
                       activeMenu === menu.path
                   }
                 )}

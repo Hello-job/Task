@@ -6,7 +6,7 @@ import {
   useLayoutEffect,
   useCallback
 } from 'react';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 import { formWidget } from './config';
 
 interface VritualListProps {

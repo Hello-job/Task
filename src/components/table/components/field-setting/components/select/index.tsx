@@ -126,7 +126,7 @@ const Select: React.FC<Props> = ({ form }: Props) => {
               );
             })}
             <div
-              className="text-sm text-violet flex items-center mt-2 ml-9"
+              className="text-sm text-violet-500 flex items-center mt-2 ml-9"
               onClick={() =>
                 add({
                   id: `${+new Date().getTime()}`.slice(4)

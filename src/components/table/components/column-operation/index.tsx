@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import cls from 'classnames';
 import FieldSetting from '../field-setting';
 import type { operationColumnType } from '@/view/project-overview/interface';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 
 interface ColumnOperationType {
   type: string;

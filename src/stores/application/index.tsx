@@ -1,13 +1,15 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from '../models';
 
-import type { applicationType } from './types';
+import type { ApplicationType } from '@/types';
 
 export const application = createModel<RootModel>()({
   state: {
     dataSource: [],
-    columns: []
-  } as applicationType,
+    columns: [],
+    projectInfo: {},
+    projectList: []
+  } as ApplicationType,
   reducers: {
     setDataSource(state, payload) {
       return {

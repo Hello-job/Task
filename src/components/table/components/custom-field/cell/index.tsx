@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import cls from 'classnames';
 import { TableContentContext } from '../../table-content/context';
-import type { rowDataType, ColumnType } from '@/stores/project/types';
+import type { RowDataType, ColumnType } from '@/types';
 import type { ReactNode } from 'react';
 
 import type { MouseEvent } from 'react';
@@ -9,13 +9,13 @@ import type { MouseEvent } from 'react';
 interface CellType {
   className?: string;
   children: ReactNode;
-  rowItem: rowDataType;
+  rowItem: RowDataType;
   mouseDown?: boolean;
-  mouseCells?: rowDataType[];
+  mouseCells?: RowDataType[];
   column: ColumnType;
-  setMouseCells?: (params: rowDataType[]) => void;
+  setMouseCells?: (params: RowDataType[]) => void;
   setMouseDown?: (params: boolean) => void;
-  onRightCellClick: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
+  onRightCellClick: (e: MouseEvent<HTMLDivElement>, row: RowDataType) => void;
 }
 
 const Cell = ({
@@ -76,7 +76,7 @@ const Cell = ({
       onMouseDown={handleonMouseDown}
       onMouseEnter={handleonMouseEnter}
       className={cls(
-        'px-2 w-full h-full text-left flex flex-col justify-center text-sm text-[#3c4152] border-2 cursor-pointer border-solid border-transparent focus-within:border-2 focus-within:border-solid focus-within:border-violet',
+        'px-2 w-full h-full text-left flex flex-col justify-center text-sm text-[#3c4152] border-2 cursor-pointer border-solid border-transparent focus-within:border-2 focus-within:border-solid focus-within:border-violet-500',
         className,
         {
           ' bg-violetMask': isSelectedRange

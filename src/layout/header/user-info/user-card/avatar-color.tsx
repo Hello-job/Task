@@ -19,7 +19,7 @@ const AvatarColor = ({ activeColor, onChange }: AvatarColorProps) => {
               }}
               style={{ backgroundColor: color }}
               className={cls('w-10 h-10 rounded-full mb-5 mr-5', {
-                'border-2 border-solid border-violet': color === activeColor
+                'border-2 border-solid border-violet-500': color === activeColor
               })}></div>
           );
         })}

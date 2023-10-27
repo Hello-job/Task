@@ -8,7 +8,7 @@ import {
   getColumnsApi,
   createColumnApi
 } from '@/services/api';
-import type { applicationType, ColumnType } from './types';
+import type { ApplicationType, ColumnType } from '@/types';
 
 export const project = createModel<RootModel>()({
   state: {
@@ -16,7 +16,7 @@ export const project = createModel<RootModel>()({
     columns: defaultColumns,
     projectInfo: {},
     projectList: []
-  } as applicationType,
+  } as ApplicationType,
   reducers: {
     setDataSource(state, payload) {
       return {

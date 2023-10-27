@@ -1,16 +1,17 @@
 import { memo, useMemo, useState, useCallback, useEffect } from 'react';
 import { formWidget } from '../config';
-import FixLeftCell from './fix-left-cell';
-import TdMenu from './td-menu';
+import FixLeftCell from './widget/fix-left-cell';
+import TdMenu from './widget/td-menu';
 import Cell from '../custom-field/cell';
 import type { MouseEvent } from 'react';
 import type { TableProps } from '../../index';
-import type { rowDataType, ColumnType } from '@/stores/project/types';
+import type { RowDataType, ColumnType } from '@/types';
 import { TableContentContextProvider } from './context';
+import useRowOperationFns from './hooks/useRowOperationFns';
 
 interface onChangeRow {
   column: ColumnType;
-  rowItem: rowDataType;
+  rowItem: RowDataType;
   value: any;
 }
 
@@ -22,7 +23,7 @@ type TableContentProps = Omit<TableProps, 'handleColumnsAction'> & {
 
 interface TableRowContextType {
   onRowChange: (params: onChangeRow) => void;
-  onRightCellClick: (e: MouseEvent<HTMLDivElement>, row: rowDataType) => void;
+  onRightCellClick: (e: MouseEvent<HTMLDivElement>, row: RowDataType) => void;
 }
 
 const initXYRange = {
@@ -52,10 +53,16 @@ const TableContent = ({
     x: 0,
     y: 0
   });
+  const [menuRow, setMenuRow] = useState<RowDataType | null>(null);
   // 鼠标左键长按
   const [mouseDown, setMouseDown] = useState<boolean>(false);
   const [selectedRange, setSelectedRange] = useState(initXYRange);
-  const [mouseCells, setMouseCells] = useState<rowDataType[]>([]);
+  const [mouseCells, setMouseCells] = useState<RowDataType[]>([]);
+
+  const { addUpRecord, addDownRecord, deleteRecord } = useRowOperationFns({
+    dataSource: visibleList,
+    setVisibleList
+  });
 
   const onListeners = useCallback(
     (e: Event) => {
@@ -97,21 +104,25 @@ const TableContent = ({
   /**
    * 鼠标右键操作
    */
-  const handleContextMenu = useCallback((e: MouseEvent<HTMLDivElement>) => {
-    const { clientX, clientY } = e;
-    setMenuVisible(true);
-    setMenuPosition({
-      x: clientX,
-      y: clientY
-    });
-  }, []);
+  const handleContextMenu = useCallback(
+    (e: MouseEvent<HTMLDivElement>, rowItem: RowDataType) => {
+      const { clientX, clientY } = e;
+      setMenuVisible(true);
+      setMenuPosition({
+        x: clientX,
+        y: clientY
+      });
+      setMenuRow(rowItem);
+    },
+    []
+  );
 
   /**
    * @description 改变行状态
    * @return {void}
    */
   const onChangeRowState = useCallback(
-    (type: ChangeType, row: rowDataType) => {
+    (type: ChangeType, row: RowDataType) => {
       visibleList.forEach(item => {
         if (item.id === row.id) {
           item.type = type;
@@ -220,7 +231,15 @@ const TableContent = ({
         {/* 新增行 */}
         <AddRow />
         {/* 右键操作 */}
-        {menuVisible && <TdMenu menuPosition={menuPosition} />}
+        {menuVisible && (
+          <TdMenu
+            menuRow={menuRow as RowDataType}
+            menuPosition={menuPosition}
+            onAddUpRecord={addUpRecord}
+            onAddDownRecord={addDownRecord}
+            onDeleteRecord={deleteRecord}
+          />
+        )}
       </div>
     </TableContentContextProvider>
   );

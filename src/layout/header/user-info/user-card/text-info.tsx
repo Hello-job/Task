@@ -48,7 +48,7 @@ const TextInfo = ({
           <span
             style={style}
             className={cls(' text-textGray', {
-              'text-violet': !text,
+              'text-violet-500': !text,
               className
             })}>
             {text ? text : '暂无'}

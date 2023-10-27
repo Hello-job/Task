@@ -1,6 +1,6 @@
 import ColumnOperation from '../components/column-operation';
 import type { operationColumnType } from '@/view/project-overview/interface';
-import type { ColumnType } from '@/stores/project/types';
+import type { ColumnType } from '@/types';
 interface addThRenderType {
   type: string;
   columns: ColumnType[];

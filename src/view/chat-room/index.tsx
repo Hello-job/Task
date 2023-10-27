@@ -144,7 +144,7 @@ const CharRoom = () => {
               </div>
             </div>
           </div>
-          <div className="h-[50px] border border-solid border-violet">
+          <div className="h-[50px] border border-solid border-violet-500">
             <div className="w-full flex h-full">
               <Input
                 autoSave="false"

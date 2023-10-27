@@ -85,7 +85,7 @@ const SelectColor = ({
         setOpen(visible);
       }}>
       <div
-        className="w-5 h-5 rounded-full bg-violet mr-4"
+        className="w-5 h-5 rounded-full bg-violet-500 mr-4"
         style={{ backgroundColor: currentColor ?? '#7b67ee' }}></div>
     </Popover>
   );

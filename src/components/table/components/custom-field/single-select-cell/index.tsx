@@ -49,7 +49,7 @@ const SingleSelect = ({ column, rowItem, onChange }: IProps) => {
               key={opt.id}>
               {showItem(opt)}
               {opt.id === selectItem?.id && (
-                <Icon className=" text-violet" type="iconselected" />
+                <Icon className=" text-violet-500" type="iconselected" />
               )}
             </div>
           );
