@@ -14,22 +14,22 @@ jobs:
         with:
           # vite 需要在node>=12 的环境下执行
           # puppeteer 需要在node>=14.1.0 的环境下执行
-          node-version: '16.x'
+          node-version: '16.14.1'
           # 下载pnpm
       - name: Install pnpm
         run: npm install -g pnpm
+          # 确保 pnpm-lock.yaml 与 package.json 保持同步。
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-      - name: Cache
-        id: cache-dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            **/node_modules
-          key: ${{runner.OS}}-${{hashFiles('**/pnpm-lock.yaml')}}
-          # 确保 pnpm-lock.yaml 与 package.json 保持同步。
-      - name: Installing Dependencies
-        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      # - name: Cache
+      #   id: cache-dependencies
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       **/node_modules
+      #     key: ${{runner.OS}}-${{hashFiles('**/pnpm-lock.yaml')}}
+      # - name: Installing Dependencies
+      #   if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: pnpm install
       - name: Running Lint
         run: pnpm run build
