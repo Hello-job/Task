@@ -17,7 +17,7 @@ export default ({ mode }) => {
           // 不经常更新的代码单独打包成一个 JS 文件，这样就可以减少 HTTP 请求，同时降低服务器压力
           // 每个 '键' 都表示一个分包块，'值' 包含列出的模块及其所有依赖项
           react: [
-            'React',
+            'react',
             'react-dom',
             'react-redux',
             'react-router-dom',
