@@ -15,8 +15,11 @@ jobs:
           # vite 需要在node>=12 的环境下执行
           # puppeteer 需要在node>=14.1.0 的环境下执行
           node-version: '16.x'
+          # 下载pnpm
       - name: Install pnpm
         run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
       - name: Cache
         id: cache-dependencies
         uses: actions/cache@v3
