@@ -3,7 +3,6 @@ import Sortable from 'sortablejs';
 import type { SortableEvent } from 'sortablejs';
 import type { ColumnType } from '@/types';
 import type { operationColumnType } from '@/view/project-overview/interface';
-import { move } from 'lodash';
 import Cell from './cell';
 
 interface HeaderContentCellType {
