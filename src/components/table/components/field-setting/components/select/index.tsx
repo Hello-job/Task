@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import Sortable from 'sortablejs';
 import type { SortableEvent } from 'sortablejs';
 import { Form, Input } from 'antd';

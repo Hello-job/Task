@@ -31,4 +31,4 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: pnpm install
       - name: Running Lint
-        run: pnpm build
+        run: pnpm run build
