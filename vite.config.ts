@@ -43,7 +43,9 @@ export default ({ mode }) => {
     ],
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src')
+        '@': resolve(__dirname, './src'),
+        react: 'react',
+        'react-dom': 'react-dom'
       }
     },
     css: {

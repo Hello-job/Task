@@ -27,6 +27,7 @@ jobs:
           path: |
             **/node_modules
           key: ${{runner.OS}}-${{hashFiles('**/pnpm-lock.yaml')}}
+          # 确保 pnpm-lock.yaml 与 package.json 保持同步。
       - name: Installing Dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: pnpm install
