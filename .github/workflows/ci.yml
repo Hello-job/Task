@@ -20,7 +20,7 @@ jobs:
         with:
           path: |
             **/node_modules
-          key: ${{runner.OS}}-${{hashFiles('**/yarn.lock')}}
+          key: ${{runner.OS}}-${{hashFiles('**/pnpm-lock.yaml')}}
       - name: Installing Dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: pnpm install
