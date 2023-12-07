@@ -66,7 +66,7 @@ const SelectItem = ({ value, onChange, add }: SelectItemProps) => {
 
 const Select: React.FC<Props> = ({ form }: Props) => {
   const sortHeaderCellRef = useRef(null);
-  const [options, setOptions] = useState(form.getFieldsValue().options);
+  const [, setOptions] = useState(form.getFieldsValue().options);
 
   const onEnd = (event: SortableEvent) => {
     const { newIndex, oldIndex } = event;
