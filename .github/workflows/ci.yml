@@ -32,3 +32,6 @@ jobs:
         run: pnpm install
       - name: Running Lint
         run: pnpm run build
+      - name: Deploy to Aliyun
+        run: |
+          scp -r -i ${{ secrets.ALIYUN }} dist/* 101.132.222.119:/usr/local/react/
