@@ -38,7 +38,7 @@ jobs:
           #私钥
           SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_KEY }}
           ARGS: "-rltgoDzvO"
-          SOURCE: "/dist"
+          SOURCE: "dist"
           REMOTE_HOST: ${{ secrets.TASK_IP }} #服务器ip
           REMOTE_USER: "root"
           TARGET: "/usr/local/react/"
