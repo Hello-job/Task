@@ -32,10 +32,7 @@ jobs:
         run: pnpm install
       - name: Running Lint
         run: pnpm run build
-      - name: Deploy to Aliyun
-        run: |
-          scp -r -i ${{ secrets.ALIYUN }} dist/* 101.132.222.119:/usr/local/react/
-          - name: Deploy to Staging My server
+      - name: Deploy to Staging My server
         uses: easingthemes/ssh-deploy@v2.1.6
         env:
           #私钥
