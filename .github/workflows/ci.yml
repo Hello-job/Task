@@ -35,3 +35,14 @@ jobs:
       - name: Deploy to Aliyun
         run: |
           scp -r -i ${{ secrets.ALIYUN }} dist/* 101.132.222.119:/usr/local/react/
+          - name: Deploy to Staging My server
+        uses: easingthemes/ssh-deploy@v2.1.6
+        env:
+          #私钥
+          SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "/dist"
+          REMOTE_HOST: ${{ secrets.TASK_IP }} #服务器ip
+          REMOTE_USER: "root"
+          TARGET: "/usr/local/react/"
+          EXCLUDE: "/node_modules/"
