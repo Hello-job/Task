@@ -79,7 +79,7 @@ const Project = () => {
           }}>
           <div className="w-full h-full bg-[#f1f3f9] flex justify-center items-center text-lg text-violet-500">
             <Icon type="icona-automationadd" className="mr-5" />
-            <span>新建项目</span>
+            <span>新建项目(测试s)</span>
           </div>
         </div>
       </div>
