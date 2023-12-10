@@ -1,8 +1,8 @@
 name: CI
 on:
   push:
-    branches: 
-    - main
+    branches:
+      - main
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -17,7 +17,8 @@ jobs:
           node-version: '16.14.1'
           # 下载pnpm
       - name: Install pnpm
-        run: npm install -g pnpm
+        run:
+          npm install -g pnpm
           # 确保 pnpm-lock.yaml 与 package.json 保持同步。
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
@@ -37,9 +38,9 @@ jobs:
         env:
           #私钥
           SSH_PRIVATE_KEY: ${{ secrets.ID_RSA_PUB }}
-          ARGS: "-rltgoDzvO"
-          SOURCE: "dist"
+          ARGS: '-rltgoDzvO'
+          SOURCE: 'dist'
           REMOTE_HOST: ${{ secrets.TASK_IP }} #服务器ip
-          REMOTE_USER: "root"
-          TARGET: "/usr/local/react/"
-          EXCLUDE: "/node_modules/"
+          REMOTE_USER: 'root'
+          TARGET: '/usr/local/react/'
+          EXCLUDE: '/node_modules/'
