@@ -70,7 +70,7 @@ const SelectColor = ({
 
   useEffect(() => {
     onChange && onChange({ color: currentColor });
-  }, [currentColor]);
+  }, [currentColor, onChange]);
 
   return (
     <Popover
